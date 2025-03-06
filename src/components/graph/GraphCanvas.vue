@@ -21,6 +21,7 @@
   </LiteGraphCanvasSplitterOverlay>
   <TitleEditor />
   <GraphCanvasMenu v-if="!betaMenuEnabled && canvasMenuEnabled" />
+  <GraphProgressBars />
   <canvas
     ref="canvasRef"
     id="graph-canvas"
@@ -41,6 +42,7 @@ import { computed, onMounted, ref, watch, watchEffect } from 'vue'
 import LiteGraphCanvasSplitterOverlay from '@/components/LiteGraphCanvasSplitterOverlay.vue'
 import BottomPanel from '@/components/bottomPanel/BottomPanel.vue'
 import GraphCanvasMenu from '@/components/graph/GraphCanvasMenu.vue'
+import GraphProgressBars from '@/components/graph/GraphProgressBars.vue'
 import NodeBadge from '@/components/graph/NodeBadge.vue'
 import NodeTooltip from '@/components/graph/NodeTooltip.vue'
 import SelectionOverlay from '@/components/graph/SelectionOverlay.vue'
