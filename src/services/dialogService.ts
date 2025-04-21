@@ -1,3 +1,4 @@
+import ApiNodesSignInContent from '@/components/dialog/content/ApiNodesSignInContent.vue'
 import ConfirmationDialogContent from '@/components/dialog/content/ConfirmationDialogContent.vue'
 import ErrorDialogContent from '@/components/dialog/content/ErrorDialogContent.vue'
 import IssueReportDialogContent from '@/components/dialog/content/IssueReportDialogContent.vue'
@@ -6,9 +7,11 @@ import ManagerProgressDialogContent from '@/components/dialog/content/ManagerPro
 import MissingModelsWarning from '@/components/dialog/content/MissingModelsWarning.vue'
 import PromptDialogContent from '@/components/dialog/content/PromptDialogContent.vue'
 import SettingDialogContent from '@/components/dialog/content/SettingDialogContent.vue'
+import SignInContent from '@/components/dialog/content/SignInContent.vue'
 import ManagerDialogContent from '@/components/dialog/content/manager/ManagerDialogContent.vue'
 import ManagerHeader from '@/components/dialog/content/manager/ManagerHeader.vue'
 import ManagerProgressFooter from '@/components/dialog/footer/ManagerProgressFooter.vue'
+import ComfyOrgHeader from '@/components/dialog/header/ComfyOrgHeader.vue'
 import ManagerProgressHeader from '@/components/dialog/header/ManagerProgressHeader.vue'
 import SettingDialogHeader from '@/components/dialog/header/SettingDialogHeader.vue'
 import TemplateWorkflowsContent from '@/components/templates/TemplateWorkflowsContent.vue'
@@ -16,6 +19,7 @@ import TemplateWorkflowsDialogHeader from '@/components/templates/TemplateWorkfl
 import { t } from '@/i18n'
 import type { ExecutionErrorWsMessage } from '@/schemas/apiSchema'
 import { type ShowDialogOptions, useDialogStore } from '@/stores/dialogStore'
+import { ManagerTab } from '@/types/comfyManagerTypes'
 
 export type ConfirmationDialogType =
   | 'default'
@@ -117,7 +121,9 @@ export const useDialogService = () => {
   }
 
   function showManagerDialog(
-    props: InstanceType<typeof ManagerDialogContent>['$props'] = {}
+    props: InstanceType<typeof ManagerDialogContent>['$props'] = {
+      initialTab: ManagerTab.All
+    }
   ) {
     dialogStore.showDialog({
       key: 'global-manager',
@@ -213,6 +219,54 @@ export const useDialogService = () => {
     })
   }
 
+  /**
+   * Shows a dialog requiring sign in for API nodes
+   * @returns Promise that resolves to true if user clicks login, false if cancelled
+   */
+  async function showApiNodesSignInDialog(
+    apiNodeNames: string[]
+  ): Promise<boolean> {
+    return new Promise<boolean>((resolve) => {
+      dialogStore.showDialog({
+        key: 'api-nodes-signin',
+        component: ApiNodesSignInContent,
+        props: {
+          apiNodeNames,
+          onLogin: () => showSignInDialog().then((result) => resolve(result)),
+          onCancel: () => resolve(false)
+        },
+        headerComponent: ComfyOrgHeader,
+        dialogComponentProps: {
+          closable: false,
+          onClose: () => resolve(false)
+        }
+      })
+    }).then((result) => {
+      dialogStore.closeDialog({ key: 'api-nodes-signin' })
+      return result
+    })
+  }
+
+  async function showSignInDialog(): Promise<boolean> {
+    return new Promise<boolean>((resolve) => {
+      dialogStore.showDialog({
+        key: 'global-signin',
+        component: SignInContent,
+        headerComponent: ComfyOrgHeader,
+        props: {
+          onSuccess: () => resolve(true)
+        },
+        dialogComponentProps: {
+          closable: false,
+          onClose: () => resolve(false)
+        }
+      })
+    }).then((result) => {
+      dialogStore.closeDialog({ key: 'global-signin' })
+      return result
+    })
+  }
+
   async function prompt({
     title,
     message,
@@ -297,6 +351,8 @@ export const useDialogService = () => {
     showManagerDialog,
     showManagerProgressDialog,
     showErrorDialog,
+    showApiNodesSignInDialog,
+    showSignInDialog,
     prompt,
     confirm
   }

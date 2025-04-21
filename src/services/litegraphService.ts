@@ -1,6 +1,5 @@
 import {
   type IContextMenuValue,
-  type INodeInputSlot,
   LGraphEventMode,
   LGraphNode,
   LiteGraph,
@@ -8,6 +7,7 @@ import {
   type Vector2
 } from '@comfyorg/litegraph'
 import type {
+  ISerialisableNodeInput,
   ISerialisableNodeOutput,
   ISerialisedNode
 } from '@comfyorg/litegraph/dist/types/serialisation'
@@ -41,7 +41,6 @@ import {
 
 import { useExtensionService } from './extensionService'
 
-const PRIMITIVE_TYPES = new Set(['INT', 'FLOAT', 'BOOLEAN', 'STRING', 'COMBO'])
 export const CONFIG = Symbol()
 export const GET_CONFIG = Symbol()
 
@@ -79,7 +78,7 @@ export const useLitegraphService = () => {
         this.#addOutputs(ComfyNode.nodeData.outputs)
         this.#setInitialSize()
         this.serialize_widgets = true
-        extensionService.invokeExtensionsAsync('nodeCreated', this)
+        void extensionService.invokeExtensionsAsync('nodeCreated', this)
       }
 
       /**
@@ -124,7 +123,8 @@ export const useLitegraphService = () => {
       }
 
       /**
-       * @internal Add a widget to the node. For primitive types, an input socket is also added.
+       * @internal Add a widget to the node. For both primitive types and custom widgets
+       * (unless `socketless`), an input socket is also added.
        */
       #addInputWidget(inputSpec: InputSpec) {
         const inputName = inputSpec.name
@@ -147,14 +147,12 @@ export const useLitegraphService = () => {
           widget.label = st(nameKey, widget.label ?? inputName)
           widget.options ??= {}
           Object.assign(widget.options, {
-            inputIsOptional: inputSpec.isOptional,
-            forceInput: inputSpec.forceInput,
             advanced: inputSpec.advanced,
             hidden: inputSpec.hidden
           })
         }
 
-        if (PRIMITIVE_TYPES.has(inputSpec.type)) {
+        if (!widget?.options?.socketless) {
           const inputSpecV1 = transformInputSpecV2ToV1(inputSpec)
           this.addInput(inputName, inputSpec.type, {
             shape: inputSpec.isOptional ? RenderShape.HollowCircle : undefined,
@@ -224,7 +222,7 @@ export const useLitegraphService = () => {
 
         // Note: input name is unique in a node definition, so we can lookup
         // input by name.
-        const inputByName = new Map<string, INodeInputSlot>(
+        const inputByName = new Map<string, ISerialisableNodeInput>(
           data.inputs?.map((input) => [input.name, input]) ?? []
         )
         // Inputs defined by the node definition.

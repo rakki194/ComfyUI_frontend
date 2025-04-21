@@ -34,6 +34,7 @@ import { useWorkflowService } from '@/services/workflowService'
 import { useCommandStore } from '@/stores/commandStore'
 import { useExecutionStore } from '@/stores/executionStore'
 import { useExtensionStore } from '@/stores/extensionStore'
+import { useFirebaseAuthStore } from '@/stores/firebaseAuthStore'
 import { KeyComboImpl, useKeybindingStore } from '@/stores/keybindingStore'
 import { useModelStore } from '@/stores/modelStore'
 import { SYSTEM_NODE_DEFS, useNodeDefStore } from '@/stores/nodeDefStore'
@@ -480,9 +481,8 @@ export class ComfyApp {
           if (match) {
             const uri = event.dataTransfer.getData(match)?.split('\n')?.[0]
             if (uri) {
-              await this.handleFile(
-                new File([await (await fetch(uri)).blob()], uri)
-              )
+              const blob = await (await fetch(uri)).blob()
+              await this.handleFile(new File([blob], uri, { type: blob.type }))
             }
           }
         }
@@ -965,7 +965,7 @@ export class ComfyApp {
     {
       showMissingNodesDialog = true,
       showMissingModelsDialog = true,
-      checkForRerouteMigration = true
+      checkForRerouteMigration = false
     } = {}
   ) {
     if (clean !== false) {
@@ -1147,22 +1147,11 @@ export class ComfyApp {
     )
     await useWorkflowService().afterLoadNewGraph(
       workflow,
-      // @ts-expect-error zod types issue. Will be fixed after we enable ts-strict
-      this.graph.serialize()
+      this.graph.serialize() as unknown as ComfyWorkflowJSON
     )
     requestAnimationFrame(() => {
       this.graph.setDirtyCanvas(true, true)
     })
-  }
-
-  /**
-   * Serializes a graph using preferred user settings.
-   * @param graph The litegraph to serialize.
-   * @returns A serialized graph (aka workflow) with preferred user settings.
-   */
-  serializeGraph(graph: LGraph = this.graph) {
-    const sortNodes = useSettingStore().get('Comfy.Workflow.SortNodeIdOnSave')
-    return graph.serialize({ sortNodes })
   }
 
   async graphToPrompt(graph = this.graph) {
@@ -1183,6 +1172,16 @@ export class ComfyApp {
     const executionStore = useExecutionStore()
     executionStore.lastNodeErrors = null
 
+    let comfyOrgAuthToken =
+      (await useFirebaseAuthStore().getIdToken()) ?? undefined
+    // Check if we're in a secure context before using the auth token
+    if (comfyOrgAuthToken && !window.isSecureContext) {
+      comfyOrgAuthToken = undefined
+      console.warn(
+        'Auth token not used: Not in a secure context. Authentication requires a secure connection.'
+      )
+    }
+
     try {
       while (this.#queueItems.length) {
         const { number, batchCount } = this.#queueItems.pop()!
@@ -1194,7 +1193,7 @@ export class ComfyApp {
 
           const p = await this.graphToPrompt()
           try {
-            const res = await api.queuePrompt(number, p)
+            const res = await api.queuePrompt(number, p, comfyOrgAuthToken)
             executionStore.lastNodeErrors = res.node_errors ?? null
             if (executionStore.lastNodeErrors?.length) {
               this.canvas.draw(true, true)
@@ -1276,8 +1275,10 @@ export class ComfyApp {
         // by external callers, and `importA1111` has no access to `app`.
         useWorkflowService().beforeLoadNewGraph()
         importA1111(this.graph, pngInfo.parameters)
-        // @ts-expect-error zod type issue on ComfyWorkflowJSON. Should be resolved after enabling ts-strict globally.
-        useWorkflowService().afterLoadNewGraph(fileName, this.serializeGraph())
+        useWorkflowService().afterLoadNewGraph(
+          fileName,
+          this.graph.serialize() as unknown as ComfyWorkflowJSON
+        )
       } else {
         this.showErrorOnFileLoad(file)
       }
@@ -1479,9 +1480,10 @@ export class ComfyApp {
 
     app.graph.arrange()
 
-    // @ts-expect-error zod type issue on ComfyWorkflowJSON. ComfyWorkflowJSON
-    // is stricter than LiteGraph's serialisation schema.
-    useWorkflowService().afterLoadNewGraph(fileName, this.serializeGraph())
+    useWorkflowService().afterLoadNewGraph(
+      fileName,
+      this.graph.serialize() as unknown as ComfyWorkflowJSON
+    )
   }
 
   /**
@@ -1517,15 +1519,16 @@ export class ComfyApp {
 
       if (!def?.input) continue
 
-      // @ts-expect-error fixme ts strict error
-      for (const widget of node.widgets) {
-        if (widget.type === 'combo') {
-          if (def['input'].required?.[widget.name] !== undefined) {
-            // @ts-expect-error Requires discriminated union
-            widget.options.values = def['input'].required[widget.name][0]
-          } else if (def['input'].optional?.[widget.name] !== undefined) {
-            // @ts-expect-error Requires discriminated union
-            widget.options.values = def['input'].optional[widget.name][0]
+      if (node.widgets) {
+        for (const widget of node.widgets) {
+          if (widget.type === 'combo') {
+            if (def['input'].required?.[widget.name] !== undefined) {
+              // @ts-expect-error Requires discriminated union
+              widget.options.values = def['input'].required[widget.name][0]
+            } else if (def['input'].optional?.[widget.name] !== undefined) {
+              // @ts-expect-error Requires discriminated union
+              widget.options.values = def['input'].optional[widget.name][0]
+            }
           }
         }
       }
