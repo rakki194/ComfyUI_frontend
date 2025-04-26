@@ -215,6 +215,20 @@ export class ComfyApi extends EventTarget {
 
   reportedUnknownMessageTypes = new Set<string>()
 
+  /**
+   * The auth token for the comfy org account if the user is logged in.
+   * This is only used for {@link queuePrompt} now. It is not directly
+   * passed as parameter to the function because some custom nodes are hijacking
+   * {@link queuePrompt} improperly, which causes extra parameters to be lost
+   * in the function call chain.
+   *
+   * Ref: https://cs.comfy.org/search?q=context:global+%22api.queuePrompt+%3D%22&patternType=keyword&sm=0
+   *
+   * TODO: Move this field to parameter of {@link queuePrompt} once all
+   * custom nodes are patched.
+   */
+  authToken?: string
+
   constructor() {
     super()
     this.user = ''
@@ -517,13 +531,11 @@ export class ComfyApi extends EventTarget {
    * Queues a prompt to be executed
    * @param {number} number The index at which to queue the prompt, passing -1 will insert the prompt at the front of the queue
    * @param {object} prompt The prompt data to queue
-   * @param {string} authToken The auth token for the comfy org account if the user is logged in
    * @throws {PromptExecutionError} If the prompt fails to execute
    */
   async queuePrompt(
     number: number,
-    data: { output: ComfyApiWorkflow; workflow: ComfyWorkflowJSON },
-    authToken?: string
+    data: { output: ComfyApiWorkflow; workflow: ComfyWorkflowJSON }
   ): Promise<PromptResponse> {
     const { output: prompt, workflow } = data
 
@@ -531,7 +543,7 @@ export class ComfyApi extends EventTarget {
       client_id: this.clientId ?? '', // TODO: Unify clientId access
       prompt,
       extra_data: {
-        auth_token_comfy_org: authToken,
+        auth_token_comfy_org: this.authToken,
         extra_pnginfo: { workflow }
       }
     }
@@ -868,52 +880,6 @@ export class ComfyApi extends EventTarget {
       }
     )
     return resp
-  }
-
-  /**
-   * @overload
-   * Lists user data files for the current user
-   * @param { string } dir The directory in which to list files
-   * @param { boolean } [recurse] If the listing should be recursive
-   * @param { true } [split] If the paths should be split based on the os path separator
-   * @returns { Promise<string[][]> } The list of split file paths in the format [fullPath, ...splitPath]
-   */
-  /**
-   * @overload
-   * Lists user data files for the current user
-   * @param { string } dir The directory in which to list files
-   * @param { boolean } [recurse] If the listing should be recursive
-   * @param { false | undefined } [split] If the paths should be split based on the os path separator
-   * @returns { Promise<string[]> } The list of files
-   */
-  async listUserData(
-    dir: string,
-    recurse: boolean,
-    split?: true
-  ): Promise<string[][]>
-  async listUserData(
-    dir: string,
-    recurse: boolean,
-    split?: false
-  ): Promise<string[]>
-  /**
-   * @deprecated Use `listUserDataFullInfo` instead.
-   */
-  async listUserData(dir: string, recurse: boolean, split?: boolean) {
-    const resp = await this.fetchApi(
-      `/userdata?${new URLSearchParams({
-        recurse: recurse ? 'true' : 'false',
-        dir,
-        split: split ? 'true' : 'false'
-      })}`
-    )
-    if (resp.status === 404) return []
-    if (resp.status !== 200) {
-      throw new Error(
-        `Error getting user data list '${dir}': ${resp.status} ${resp.statusText}`
-      )
-    }
-    return resp.json()
   }
 
   async listUserDataFullInfo(dir: string): Promise<UserDataFullInfo[]> {

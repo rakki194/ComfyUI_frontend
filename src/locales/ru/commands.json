@@ -83,6 +83,9 @@
   "Comfy_ClearWorkflow": {
     "label": "Очистить рабочий процесс"
   },
+  "Comfy_ContactSupport": {
+    "label": "Связаться с поддержкой"
+  },
   "Comfy_DuplicateWorkflow": {
     "label": "Дублировать текущий рабочий процесс"
   },
@@ -172,6 +175,12 @@
   },
   "Comfy_Undo": {
     "label": "Отменить"
+  },
+  "Comfy_User_OpenSignInDialog": {
+    "label": "Открыть окно входа"
+  },
+  "Comfy_User_SignOut": {
+    "label": "Выйти"
   },
   "Workspace_CloseWorkflow": {
     "label": "Закрыть текущий рабочий процесс"

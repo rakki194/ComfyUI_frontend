@@ -5,8 +5,45 @@ import * as vuefire from 'vuefire'
 
 import { useFirebaseAuthStore } from '@/stores/firebaseAuthStore'
 
+// Mock fetch
+const mockFetch = vi.fn()
+vi.stubGlobal('fetch', mockFetch)
+
+// Mock successful API responses
+const mockCreateCustomerResponse = {
+  ok: true,
+  statusText: 'OK',
+  json: () => Promise.resolve({ id: 'test-customer-id' })
+}
+
+const mockFetchBalanceResponse = {
+  ok: true,
+  json: () => Promise.resolve({ balance: 0 })
+}
+
+const mockAddCreditsResponse = {
+  ok: true,
+  statusText: 'OK'
+}
+
+const mockAccessBillingPortalResponse = {
+  ok: true,
+  statusText: 'OK'
+}
+
 vi.mock('vuefire', () => ({
   useFirebaseAuth: vi.fn()
+}))
+
+vi.mock('vue-i18n', () => ({
+  useI18n: () => ({
+    t: (key: string) => key
+  }),
+  createI18n: () => ({
+    global: {
+      t: (key: string) => key
+    }
+  })
 }))
 
 vi.mock('firebase/auth', () => ({
@@ -19,6 +56,20 @@ vi.mock('firebase/auth', () => ({
   GithubAuthProvider: vi.fn(),
   browserLocalPersistence: 'browserLocalPersistence',
   setPersistence: vi.fn().mockResolvedValue(undefined)
+}))
+
+// Mock useToastStore
+vi.mock('@/stores/toastStore', () => ({
+  useToastStore: () => ({
+    add: vi.fn()
+  })
+}))
+
+// Mock useDialogService
+vi.mock('@/services/dialogService', () => ({
+  useDialogService: () => ({
+    showSettingsDialog: vi.fn()
+  })
 }))
 
 describe('useFirebaseAuthStore', () => {
@@ -52,9 +103,30 @@ describe('useFirebaseAuthStore', () => {
       }
     )
 
+    // Mock fetch responses
+    mockFetch.mockImplementation((url: string) => {
+      if (url.endsWith('/customers')) {
+        return Promise.resolve(mockCreateCustomerResponse)
+      }
+      if (url.endsWith('/customers/balance')) {
+        return Promise.resolve(mockFetchBalanceResponse)
+      }
+      if (url.endsWith('/customers/credit')) {
+        return Promise.resolve(mockAddCreditsResponse)
+      }
+      if (url.endsWith('/customers/billing-portal')) {
+        return Promise.resolve(mockAccessBillingPortalResponse)
+      }
+      return Promise.reject(new Error('Unexpected API call'))
+    })
+
     // Initialize Pinia
     setActivePinia(createPinia())
     store = useFirebaseAuthStore()
+
+    // Reset and set up getIdToken mock
+    mockUser.getIdToken.mockReset()
+    mockUser.getIdToken.mockResolvedValue('mock-id-token')
   })
 
   it('should initialize with the current user', () => {
@@ -63,7 +135,6 @@ describe('useFirebaseAuthStore', () => {
     expect(store.userEmail).toBe('test@example.com')
     expect(store.userId).toBe('test-user-id')
     expect(store.loading).toBe(false)
-    expect(store.error).toBe(null)
   })
 
   it('should set persistence to local storage on initialization', () => {
@@ -86,34 +157,12 @@ describe('useFirebaseAuthStore', () => {
       // Error expected
     }
 
-    expect(store.error).toBe('Invalid password')
-
     // Now, succeed on next attempt
     vi.mocked(firebaseAuth.signInWithEmailAndPassword).mockResolvedValueOnce({
       user: mockUser
     } as any)
 
     await store.login('test@example.com', 'correct-password')
-
-    // Error should be cleared
-    expect(store.error).toBe(null)
-  })
-
-  it('should handle auth initialization failure', async () => {
-    // Mock auth as null to simulate initialization failure
-    vi.mocked(vuefire.useFirebaseAuth).mockReturnValue(null)
-
-    // Create a new store instance
-    setActivePinia(createPinia())
-    const uninitializedStore = useFirebaseAuthStore()
-
-    // Check that isInitialized is false
-    expect(uninitializedStore.isInitialized).toBe(false)
-
-    // Verify store actions throw appropriate errors
-    await expect(
-      uninitializedStore.login('test@example.com', 'password')
-    ).rejects.toThrow('Firebase Auth not initialized')
   })
 
   describe('login', () => {
@@ -132,7 +181,6 @@ describe('useFirebaseAuthStore', () => {
       )
       expect(result).toEqual(mockUserCredential)
       expect(store.loading).toBe(false)
-      expect(store.error).toBe(null)
     })
 
     it('should handle login errors', async () => {
@@ -151,46 +199,6 @@ describe('useFirebaseAuthStore', () => {
         'wrong-password'
       )
       expect(store.loading).toBe(false)
-      expect(store.error).toBe('Invalid password')
-    })
-  })
-
-  describe('register', () => {
-    it('should register a new user', async () => {
-      const mockUserCredential = { user: mockUser }
-      vi.mocked(firebaseAuth.createUserWithEmailAndPassword).mockResolvedValue(
-        mockUserCredential as any
-      )
-
-      const result = await store.register('new@example.com', 'password')
-
-      expect(firebaseAuth.createUserWithEmailAndPassword).toHaveBeenCalledWith(
-        mockAuth,
-        'new@example.com',
-        'password'
-      )
-      expect(result).toEqual(mockUserCredential)
-      expect(store.loading).toBe(false)
-      expect(store.error).toBe(null)
-    })
-
-    it('should handle registration errors', async () => {
-      const mockError = new Error('Email already in use')
-      vi.mocked(firebaseAuth.createUserWithEmailAndPassword).mockRejectedValue(
-        mockError
-      )
-
-      await expect(
-        store.register('existing@example.com', 'password')
-      ).rejects.toThrow('Email already in use')
-
-      expect(firebaseAuth.createUserWithEmailAndPassword).toHaveBeenCalledWith(
-        mockAuth,
-        'existing@example.com',
-        'password'
-      )
-      expect(store.loading).toBe(false)
-      expect(store.error).toBe('Email already in use')
     })
 
     it('should handle concurrent login attempts correctly', async () => {
@@ -211,6 +219,43 @@ describe('useFirebaseAuthStore', () => {
     })
   })
 
+  describe('register', () => {
+    it('should register a new user', async () => {
+      const mockUserCredential = { user: mockUser }
+      vi.mocked(firebaseAuth.createUserWithEmailAndPassword).mockResolvedValue(
+        mockUserCredential as any
+      )
+
+      const result = await store.register('new@example.com', 'password')
+
+      expect(firebaseAuth.createUserWithEmailAndPassword).toHaveBeenCalledWith(
+        mockAuth,
+        'new@example.com',
+        'password'
+      )
+      expect(result).toEqual(mockUserCredential)
+      expect(store.loading).toBe(false)
+    })
+
+    it('should handle registration errors', async () => {
+      const mockError = new Error('Email already in use')
+      vi.mocked(firebaseAuth.createUserWithEmailAndPassword).mockRejectedValue(
+        mockError
+      )
+
+      await expect(
+        store.register('existing@example.com', 'password')
+      ).rejects.toThrow('Email already in use')
+
+      expect(firebaseAuth.createUserWithEmailAndPassword).toHaveBeenCalledWith(
+        mockAuth,
+        'existing@example.com',
+        'password'
+      )
+      expect(store.loading).toBe(false)
+    })
+  })
+
   describe('logout', () => {
     it('should sign out the user', async () => {
       vi.mocked(firebaseAuth.signOut).mockResolvedValue(undefined)
@@ -227,7 +272,6 @@ describe('useFirebaseAuthStore', () => {
       await expect(store.logout()).rejects.toThrow('Network error')
 
       expect(firebaseAuth.signOut).toHaveBeenCalledWith(mockAuth)
-      expect(store.error).toBe('Network error')
     })
   })
 
@@ -301,7 +345,6 @@ describe('useFirebaseAuthStore', () => {
         )
         expect(result).toEqual(mockUserCredential)
         expect(store.loading).toBe(false)
-        expect(store.error).toBe(null)
       })
 
       it('should handle Google sign in errors', async () => {
@@ -317,7 +360,6 @@ describe('useFirebaseAuthStore', () => {
           expect.any(firebaseAuth.GoogleAuthProvider)
         )
         expect(store.loading).toBe(false)
-        expect(store.error).toBe('Google authentication failed')
       })
     })
 
@@ -336,7 +378,6 @@ describe('useFirebaseAuthStore', () => {
         )
         expect(result).toEqual(mockUserCredential)
         expect(store.loading).toBe(false)
-        expect(store.error).toBe(null)
       })
 
       it('should handle Github sign in errors', async () => {
@@ -352,7 +393,6 @@ describe('useFirebaseAuthStore', () => {
           expect.any(firebaseAuth.GithubAuthProvider)
         )
         expect(store.loading).toBe(false)
-        expect(store.error).toBe('Github authentication failed')
       })
     })
 

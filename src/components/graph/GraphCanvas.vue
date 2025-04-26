@@ -19,7 +19,6 @@
       <GraphCanvasMenu v-if="canvasMenuEnabled" class="pointer-events-auto" />
     </template>
   </LiteGraphCanvasSplitterOverlay>
-  <TitleEditor />
   <GraphCanvasMenu v-if="!betaMenuEnabled && canvasMenuEnabled" />
   <GraphProgressBars />
   <canvas
@@ -28,13 +27,20 @@
     tabindex="1"
     class="w-full h-full touch-none"
   />
-  <NodeSearchboxPopover />
-  <SelectionOverlay v-if="selectionToolboxEnabled">
-    <SelectionToolbox />
-  </SelectionOverlay>
-  <NodeTooltip v-if="tooltipEnabled" />
+
   <NodeBadge />
-  <DomWidgets />
+  <NodeTooltip v-if="tooltipEnabled" />
+  <NodeSearchboxPopover />
+
+  <!-- Initialize components after comfyApp is ready. useAbsolutePosition requires
+  canvasStore.canvas to be initialized. -->
+  <template v-if="comfyAppReady">
+    <TitleEditor />
+    <SelectionOverlay v-if="selectionToolboxEnabled">
+      <SelectionToolbox />
+    </SelectionOverlay>
+    <DomWidgets />
+  </template>
 </template>
 
 <script setup lang="ts">
@@ -80,7 +86,9 @@ import { useSettingStore } from '@/stores/settingStore'
 import { useColorPaletteStore } from '@/stores/workspace/colorPaletteStore'
 import { useWorkspaceStore } from '@/stores/workspaceStore'
 
-const emit = defineEmits(['ready'])
+const emit = defineEmits<{
+  ready: []
+}>()
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 const settingStore = useSettingStore()
 const nodeDefStore = useNodeDefStore()

@@ -36,7 +36,10 @@
         >
           {{ t('auth.login.passwordLabel') }}
         </label>
-        <span class="text-muted text-base font-medium cursor-pointer">
+        <span
+          class="text-muted text-base font-medium cursor-pointer"
+          @click="handleForgotPassword($form.email?.value)"
+        >
           {{ t('auth.login.forgotPassword') }}
         </span>
       </div>
@@ -57,7 +60,9 @@
     </div>
 
     <!-- Submit Button -->
+    <ProgressSpinner v-if="loading" class="w-8 h-8" />
     <Button
+      v-else
       type="submit"
       :label="t('auth.login.loginButton')"
       class="h-10 font-medium mt-4"
@@ -71,9 +76,17 @@ import { zodResolver } from '@primevue/forms/resolvers/zod'
 import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
 import Password from 'primevue/password'
+import ProgressSpinner from 'primevue/progressspinner'
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { type SignInData, signInSchema } from '@/schemas/signInSchema'
+import { useFirebaseAuthService } from '@/services/firebaseAuthService'
+import { useFirebaseAuthStore } from '@/stores/firebaseAuthStore'
+
+const authStore = useFirebaseAuthStore()
+const firebaseAuthService = useFirebaseAuthService()
+const loading = computed(() => authStore.loading)
 
 const { t } = useI18n()
 
@@ -85,5 +98,10 @@ const onSubmit = (event: FormSubmitEvent) => {
   if (event.valid) {
     emit('submit', event.values as SignInData)
   }
+}
+
+const handleForgotPassword = async (email: string) => {
+  if (!email) return
+  await firebaseAuthService.sendPasswordReset(email)
 }
 </script>

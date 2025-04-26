@@ -30,6 +30,7 @@ import { $el } from '@/scripts/ui'
 import { useCanvasStore } from '@/stores/graphStore'
 import { useNodeOutputStore } from '@/stores/imagePreviewStore'
 import { ComfyNodeDefImpl } from '@/stores/nodeDefStore'
+import { useSettingStore } from '@/stores/settingStore'
 import { useToastStore } from '@/stores/toastStore'
 import { useWidgetStore } from '@/stores/widgetStore'
 import { normalizeI18nKey } from '@/utils/formatUtil'
@@ -113,7 +114,9 @@ export const useLitegraphService = () => {
       #addInputSocket(inputSpec: InputSpec) {
         const inputName = inputSpec.name
         const nameKey = `${this.#nodeKey}.inputs.${normalizeI18nKey(inputName)}.name`
-        const widgetConstructor = widgetStore.widgets.get(inputSpec.type)
+        const widgetConstructor = widgetStore.widgets.get(
+          inputSpec.widgetType ?? inputSpec.type
+        )
         if (widgetConstructor && !inputSpec.forceInput) return
 
         this.addInput(inputName, inputSpec.type, {
@@ -127,9 +130,13 @@ export const useLitegraphService = () => {
        * (unless `socketless`), an input socket is also added.
        */
       #addInputWidget(inputSpec: InputSpec) {
+        const widgetInputSpec = { ...inputSpec }
+        if (inputSpec.widgetType) {
+          widgetInputSpec.type = inputSpec.widgetType
+        }
         const inputName = inputSpec.name
         const nameKey = `${this.#nodeKey}.inputs.${normalizeI18nKey(inputName)}.name`
-        const widgetConstructor = widgetStore.widgets.get(inputSpec.type)
+        const widgetConstructor = widgetStore.widgets.get(widgetInputSpec.type)
         if (!widgetConstructor || inputSpec.forceInput) return
 
         const {
@@ -139,7 +146,7 @@ export const useLitegraphService = () => {
         } = widgetConstructor(
           this,
           inputName,
-          transformInputSpecV2ToV1(inputSpec),
+          transformInputSpecV2ToV1(widgetInputSpec),
           app
         ) ?? {}
 
@@ -153,7 +160,7 @@ export const useLitegraphService = () => {
         }
 
         if (!widget?.options?.socketless) {
-          const inputSpecV1 = transformInputSpecV2ToV1(inputSpec)
+          const inputSpecV1 = transformInputSpecV2ToV1(widgetInputSpec)
           this.addInput(inputName, inputSpec.type, {
             shape: inputSpec.isOptional ? RenderShape.HollowCircle : undefined,
             localized_name: st(nameKey, inputName),
@@ -208,7 +215,11 @@ export const useLitegraphService = () => {
        */
       #setInitialSize() {
         const s = this.computeSize()
-        s[0] = Math.max(this.#initialMinSize.width, s[0] * 1.5)
+        // Expand the width a little to fit widget values on screen.
+        const pad =
+          this.widgets?.length &&
+          !useSettingStore().get('LiteGraph.Node.DefaultPadding')
+        s[0] = Math.max(this.#initialMinSize.width, s[0] + (pad ? 60 : 0))
         s[1] = Math.max(this.#initialMinSize.height, s[1])
         this.setSize(s)
       }
