@@ -18,6 +18,7 @@
       "failed": "Inicio de sesión fallido",
       "forgotPassword": "¿Olvidaste tu contraseña?",
       "forgotPasswordError": "No se pudo enviar el correo electrónico para restablecer la contraseña",
+      "insecureContextWarning": "Esta conexión no es segura (HTTP): tus credenciales pueden ser interceptadas por atacantes si continúas con el inicio de sesión.",
       "loginButton": "Iniciar sesión",
       "loginWithGithub": "Iniciar sesión con Github",
       "loginWithGoogle": "Iniciar sesión con Google",
@@ -28,12 +29,17 @@
       "passwordResetSent": "Correo electrónico de restablecimiento de contraseña enviado",
       "passwordResetSentDetail": "Por favor, revisa tu correo electrónico para encontrar un enlace para restablecer tu contraseña.",
       "privacyLink": "Política de privacidad",
+      "questionsContactPrefix": "¿Preguntas? Contáctanos en",
       "signInOrSignUp": "Iniciar sesión / Registrarse",
       "signUp": "Regístrate",
       "success": "Inicio de sesión exitoso",
       "termsLink": "Términos de uso",
       "termsText": "Al hacer clic en \"Siguiente\" o \"Registrarse\", aceptas nuestros",
       "title": "Inicia sesión en tu cuenta"
+    },
+    "passwordUpdate": {
+      "success": "Contraseña actualizada",
+      "successDetail": "Tu contraseña se ha actualizado correctamente"
     },
     "signOut": {
       "signOut": "Cerrar sesión",
@@ -46,6 +52,8 @@
       "emailPlaceholder": "Ingresa tu correo electrónico",
       "passwordLabel": "Contraseña",
       "passwordPlaceholder": "Ingresa una nueva contraseña",
+      "personalDataConsentLabel": "Acepto el tratamiento de mis datos personales.",
+      "regionRestrictionChina": "De acuerdo con los requisitos regulatorios locales, nuestros servicios no están disponibles actualmente para usuarios ubicados en China continental.",
       "signIn": "Iniciar sesión",
       "signUpButton": "Registrarse",
       "signUpWithGithub": "Registrarse con Github",
@@ -163,6 +171,9 @@
   },
   "desktopUpdate": {
     "description": "ComfyUI Desktop está instalando nuevas dependencias. Esto puede tardar unos minutos.",
+    "errorCheckingUpdate": "Error al buscar actualizaciones",
+    "errorInstallingUpdate": "Error al instalar la actualización",
+    "noUpdateFound": "No se encontró ninguna actualización",
     "terminalDefaultMessage": "Cualquier salida de consola de la actualización se mostrará aquí.",
     "title": "Actualizando ComfyUI Desktop",
     "updateAvailableMessage": "Hay una actualización disponible. ¿Quieres reiniciar y actualizar ahora?",
@@ -297,6 +308,7 @@
     "success": "Éxito",
     "systemInfo": "Información del sistema",
     "terminal": "Terminal",
+    "title": "Título",
     "unknownError": "Error desconocido",
     "update": "Actualizar",
     "updateAvailable": "Actualización Disponible",
@@ -1121,7 +1133,6 @@
     "failedToPurchaseCredits": "No se pudo comprar créditos: {error}",
     "fileLoadError": "No se puede encontrar el flujo de trabajo en {fileName}",
     "fileUploadFailed": "Error al subir el archivo",
-    "firebaseAuthNotInitialized": "Firebase Auth no está inicializado",
     "interrupted": "La ejecución ha sido interrumpida",
     "migrateToLitegraphReroute": "Los nodos de reroute se eliminarán en futuras versiones. Haz clic para migrar a reroute nativo de litegraph.",
     "no3dScene": "No hay escena 3D para aplicar textura",
@@ -1132,6 +1143,7 @@
     "pendingTasksDeleted": "Tareas pendientes eliminadas",
     "pleaseSelectNodesToGroup": "Por favor, seleccione los nodos (u otros grupos) para crear un grupo para",
     "unableToGetModelFilePath": "No se puede obtener la ruta del archivo del modelo",
+    "unauthorizedDomain": "Tu dominio {domain} no está autorizado para usar este servicio. Por favor, contacta a {email} para agregar tu dominio a la lista blanca.",
     "updateRequested": "Actualización solicitada",
     "userNotAuthenticated": "Usuario no autenticado"
   },
@@ -1147,11 +1159,8 @@
     "name": "Nombre",
     "notSet": "No establecido",
     "provider": "Método de inicio de sesión",
-    "providers": {
-      "github": "GitHub",
-      "google": "Google"
-    },
-    "title": "Configuración de usuario"
+    "title": "Configuración de usuario",
+    "updatePassword": "Actualizar contraseña"
   },
   "validation": {
     "invalidEmail": "Dirección de correo electrónico inválida",
@@ -1166,6 +1175,7 @@
       "special": "Debe contener al menos un carácter especial",
       "uppercase": "Debe contener al menos una letra mayúscula"
     },
+    "personalDataConsentRequired": "Debes aceptar el procesamiento de tus datos personales.",
     "required": "Requerido"
   },
   "welcome": {

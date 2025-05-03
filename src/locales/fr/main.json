@@ -18,6 +18,7 @@
       "failed": "Échec de la connexion",
       "forgotPassword": "Mot de passe oublié?",
       "forgotPasswordError": "Échec de l'envoi de l'e-mail de réinitialisation du mot de passe",
+      "insecureContextWarning": "Cette connexion n'est pas sécurisée (HTTP) - vos identifiants pourraient être interceptés par des attaquants si vous continuez à vous connecter.",
       "loginButton": "Se connecter",
       "loginWithGithub": "Se connecter avec Github",
       "loginWithGoogle": "Se connecter avec Google",
@@ -28,12 +29,17 @@
       "passwordResetSent": "E-mail de réinitialisation du mot de passe envoyé",
       "passwordResetSentDetail": "Veuillez vérifier votre e-mail pour un lien de réinitialisation de votre mot de passe.",
       "privacyLink": "Politique de confidentialité",
+      "questionsContactPrefix": "Des questions ? Contactez-nous à",
       "signInOrSignUp": "Se connecter / S’inscrire",
       "signUp": "S'inscrire",
       "success": "Connexion réussie",
       "termsLink": "Conditions d'utilisation",
       "termsText": "En cliquant sur \"Suivant\" ou \"S'inscrire\", vous acceptez nos",
       "title": "Connectez-vous à votre compte"
+    },
+    "passwordUpdate": {
+      "success": "Mot de passe mis à jour",
+      "successDetail": "Votre mot de passe a été mis à jour avec succès"
     },
     "signOut": {
       "signOut": "Se déconnecter",
@@ -46,6 +52,8 @@
       "emailPlaceholder": "Entrez votre email",
       "passwordLabel": "Mot de passe",
       "passwordPlaceholder": "Entrez un nouveau mot de passe",
+      "personalDataConsentLabel": "J'accepte le traitement de mes données personnelles.",
+      "regionRestrictionChina": "Conformément aux exigences réglementaires locales, nos services ne sont actuellement pas disponibles pour les utilisateurs situés en Chine continentale.",
       "signIn": "Se connecter",
       "signUpButton": "S'inscrire",
       "signUpWithGithub": "S'inscrire avec Github",
@@ -163,6 +171,9 @@
   },
   "desktopUpdate": {
     "description": "ComfyUI Desktop installe de nouvelles dépendances. Cela peut prendre quelques minutes.",
+    "errorCheckingUpdate": "Erreur lors de la vérification des mises à jour",
+    "errorInstallingUpdate": "Erreur lors de l'installation de la mise à jour",
+    "noUpdateFound": "Aucune mise à jour trouvée",
     "terminalDefaultMessage": "Toute sortie de console de la mise à jour sera affichée ici.",
     "title": "Mise à jour de ComfyUI Desktop",
     "updateAvailableMessage": "Une mise à jour est disponible. Voulez-vous redémarrer et mettre à jour maintenant?",
@@ -297,6 +308,7 @@
     "success": "Succès",
     "systemInfo": "Informations système",
     "terminal": "Terminal",
+    "title": "Titre",
     "unknownError": "Erreur inconnue",
     "update": "Mettre à jour",
     "updateAvailable": "Mise à jour disponible",
@@ -1121,7 +1133,6 @@
     "failedToPurchaseCredits": "Échec de l'achat de crédits : {error}",
     "fileLoadError": "Impossible de trouver le flux de travail dans {fileName}",
     "fileUploadFailed": "Échec du téléchargement du fichier",
-    "firebaseAuthNotInitialized": "Authentification Firebase non initialisée",
     "interrupted": "L'exécution a été interrompue",
     "migrateToLitegraphReroute": "Les nœuds de reroute seront supprimés dans les futures versions. Cliquez pour migrer vers le reroute natif de litegraph.",
     "no3dScene": "Aucune scène 3D pour appliquer la texture",
@@ -1132,6 +1143,7 @@
     "pendingTasksDeleted": "Tâches en attente supprimées",
     "pleaseSelectNodesToGroup": "Veuillez sélectionner les nœuds (ou autres groupes) pour créer un groupe pour",
     "unableToGetModelFilePath": "Impossible d'obtenir le chemin du fichier modèle",
+    "unauthorizedDomain": "Votre domaine {domain} n'est pas autorisé à utiliser ce service. Veuillez contacter {email} pour ajouter votre domaine à la liste blanche.",
     "updateRequested": "Mise à jour demandée",
     "userNotAuthenticated": "Utilisateur non authentifié"
   },
@@ -1147,11 +1159,8 @@
     "name": "Nom",
     "notSet": "Non défini",
     "provider": "Méthode de connexion",
-    "providers": {
-      "github": "GitHub",
-      "google": "Google"
-    },
-    "title": "Paramètres utilisateur"
+    "title": "Paramètres utilisateur",
+    "updatePassword": "Mettre à jour le mot de passe"
   },
   "validation": {
     "invalidEmail": "Adresse e-mail invalide",
@@ -1166,6 +1175,7 @@
       "special": "Doit contenir au moins un caractère spécial",
       "uppercase": "Doit contenir au moins une lettre majuscule"
     },
+    "personalDataConsentRequired": "Vous devez accepter le traitement de vos données personnelles.",
     "required": "Requis"
   },
   "welcome": {

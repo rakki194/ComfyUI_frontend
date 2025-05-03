@@ -27,6 +27,7 @@ import {
 import type { ComfyNodeDef as ComfyNodeDefV1 } from '@/schemas/nodeDefSchema'
 import { getFromWebmFile } from '@/scripts/metadata/ebml'
 import { getGltfBinaryMetadata } from '@/scripts/metadata/gltf'
+import { getFromIsobmffFile } from '@/scripts/metadata/isobmff'
 import { useDialogService } from '@/services/dialogService'
 import { useExtensionService } from '@/services/extensionService'
 import { useLitegraphService } from '@/services/litegraphService'
@@ -61,6 +62,8 @@ import { deserialiseAndCreate } from '@/utils/vintageClipboard'
 
 import { type ComfyApi, PromptExecutionError, api } from './api'
 import { defaultGraph } from './defaultGraph'
+import { pruneWidgets } from './domWidget'
+import { getSvgMetadata } from './metadata/svg'
 import {
   getFlacMetadata,
   getLatentMetadata,
@@ -270,6 +273,12 @@ export class ComfyApp {
       useExtensionService().invokeExtensions('onNodeOutputsUpdated', value)
   }
 
+  /**
+   * If the user has specified a preferred format to receive preview images in,
+   * this function will return that format as a url query param.
+   * If the node's outputs are not images, this param should not be used, as it will
+   * force the server to load the output file as an image.
+   */
   getPreviewFormatParam() {
     let preview_format = useSettingStore().get('Comfy.PreviewFormat')
     if (preview_format) return `&preview=${preview_format}`
@@ -424,30 +433,6 @@ export class ComfyApp {
     }
   }
 
-  #addRestoreWorkflowView() {
-    const serialize = LGraph.prototype.serialize
-    const self = this
-    LGraph.prototype.serialize = function (...args) {
-      const workflow = serialize.apply(this, args)
-
-      // Store the drag & scale info in the serialized workflow if the setting is enabled
-      if (useSettingStore().get('Comfy.EnableWorkflowViewRestore')) {
-        if (!workflow.extra) {
-          workflow.extra = {}
-        }
-        workflow.extra.ds = {
-          scale: self.canvas.ds.scale,
-          offset: [...self.canvas.ds.offset]
-        }
-      } else if (workflow.extra?.ds) {
-        // Clear any old view data
-        delete workflow.extra.ds
-      }
-
-      return workflow
-    }
-  }
-
   /**
    * Adds a handler allowing drag+drop of files onto the window to load workflows
    */
@@ -530,11 +515,7 @@ export class ComfyApp {
   #addProcessKeyHandler() {
     const origProcessKey = LGraphCanvas.prototype.processKey
     LGraphCanvas.prototype.processKey = function (e: KeyboardEvent) {
-      if (!this.graph) {
-        return
-      }
-
-      var block_default = false
+      if (!this.graph) return
 
       if (e.target instanceof Element && e.target.localName == 'input') {
         return
@@ -544,15 +525,19 @@ export class ComfyApp {
         const keyCombo = KeyComboImpl.fromEvent(e)
         const keybindingStore = useKeybindingStore()
         const keybinding = keybindingStore.getKeybinding(keyCombo)
+
         if (keybinding && keybinding.targetElementId === 'graph-canvas') {
           useCommandStore().execute(keybinding.commandId)
-          block_default = true
+
+          this.graph.change()
+          e.preventDefault()
+          e.stopImmediatePropagation()
+          return
         }
 
         // Ctrl+C Copy
         if (e.key === 'c' && (e.metaKey || e.ctrlKey)) {
-          // Trigger onCopy
-          return true
+          return
         }
 
         // Ctrl+V Paste
@@ -561,17 +546,8 @@ export class ComfyApp {
           (e.metaKey || e.ctrlKey) &&
           !e.shiftKey
         ) {
-          // Trigger onPaste
-          return true
+          return
         }
-      }
-
-      this.graph.change()
-
-      if (block_default) {
-        e.preventDefault()
-        e.stopImmediatePropagation()
-        return false
       }
 
       // Fall through to Litegraph defaults
@@ -739,6 +715,8 @@ export class ComfyApp {
         node.onAfterGraphConfigured?.()
       }
 
+      pruneWidgets(this.nodes)
+
       return r
     }
   }
@@ -767,7 +745,6 @@ export class ComfyApp {
     this.#addProcessKeyHandler()
     this.#addConfigureHandler()
     this.#addApiUpdateHandlers()
-    this.#addRestoreWorkflowView()
 
     this.graph = new LGraph()
 
@@ -1189,13 +1166,6 @@ export class ComfyApp {
 
     let comfyOrgAuthToken =
       (await useFirebaseAuthStore().getIdToken()) ?? undefined
-    // Check if we're in a secure context before using the auth token
-    if (comfyOrgAuthToken && !window.isSecureContext) {
-      comfyOrgAuthToken = undefined
-      console.warn(
-        'Auth token not used: Not in a secure context. Authentication requires a secure connection.'
-      )
-    }
 
     try {
       while (this.#queueItems.length) {
@@ -1330,6 +1300,29 @@ export class ComfyApp {
         this.loadGraphData(webmInfo.workflow, true, true, fileName)
       } else if (webmInfo.prompt) {
         this.loadApiJson(webmInfo.prompt, fileName)
+      } else {
+        this.showErrorOnFileLoad(file)
+      }
+    } else if (
+      file.type === 'video/mp4' ||
+      file.name?.endsWith('.mp4') ||
+      file.name?.endsWith('.mov') ||
+      file.name?.endsWith('.m4v') ||
+      file.type === 'video/quicktime' ||
+      file.type === 'video/x-m4v'
+    ) {
+      const mp4Info = await getFromIsobmffFile(file)
+      if (mp4Info.workflow) {
+        this.loadGraphData(mp4Info.workflow, true, true, fileName)
+      } else if (mp4Info.prompt) {
+        this.loadApiJson(mp4Info.prompt, fileName)
+      }
+    } else if (file.type === 'image/svg+xml' || file.name?.endsWith('.svg')) {
+      const svgInfo = await getSvgMetadata(file)
+      if (svgInfo.workflow) {
+        this.loadGraphData(svgInfo.workflow, true, true, fileName)
+      } else if (svgInfo.prompt) {
+        this.loadApiJson(svgInfo.prompt, fileName)
       } else {
         this.showErrorOnFileLoad(file)
       }

@@ -18,6 +18,7 @@
       "failed": "Вход не удался",
       "forgotPassword": "Забыли пароль?",
       "forgotPasswordError": "Не удалось отправить письмо для сброса пароля",
+      "insecureContextWarning": "Это соединение небезопасно (HTTP) — ваши учетные данные могут быть перехвачены злоумышленниками, если вы продолжите вход.",
       "loginButton": "Войти",
       "loginWithGithub": "Войти через Github",
       "loginWithGoogle": "Войти через Google",
@@ -28,12 +29,17 @@
       "passwordResetSent": "Письмо для сброса пароля отправлено",
       "passwordResetSentDetail": "Пожалуйста, проверьте свою электронную почту для получения ссылки на сброс пароля.",
       "privacyLink": "Политикой конфиденциальности",
+      "questionsContactPrefix": "Вопросы? Свяжитесь с нами по адресу",
       "signInOrSignUp": "Войти / Зарегистрироваться",
       "signUp": "Зарегистрироваться",
       "success": "Вход выполнен успешно",
       "termsLink": "Условиями использования",
       "termsText": "Нажимая \"Далее\" или \"Зарегистрироваться\", вы соглашаетесь с нашими",
       "title": "Войдите в свой аккаунт"
+    },
+    "passwordUpdate": {
+      "success": "Пароль обновлён",
+      "successDetail": "Ваш пароль был успешно обновлён"
     },
     "signOut": {
       "signOut": "Выйти",
@@ -46,6 +52,8 @@
       "emailPlaceholder": "Введите вашу электронную почту",
       "passwordLabel": "Пароль",
       "passwordPlaceholder": "Введите новый пароль",
+      "personalDataConsentLabel": "Я согласен на обработку моих персональных данных.",
+      "regionRestrictionChina": "В соответствии с местными нормативными требованиями наши услуги в настоящее время недоступны для пользователей, находящихся в материковом Китае.",
       "signIn": "Войти",
       "signUpButton": "Зарегистрироваться",
       "signUpWithGithub": "Зарегистрироваться через Github",
@@ -163,6 +171,9 @@
   },
   "desktopUpdate": {
     "description": "ComfyUI Desktop устанавливает новые зависимости. Это может занять несколько минут.",
+    "errorCheckingUpdate": "Ошибка при проверке обновлений",
+    "errorInstallingUpdate": "Ошибка при установке обновления",
+    "noUpdateFound": "Обновлений не найдено",
     "terminalDefaultMessage": "Любой вывод консоли из обновления будет отображаться здесь.",
     "title": "Обновление ComfyUI Desktop",
     "updateAvailableMessage": "Доступно обновление. Вы хотите перезагрузить и обновить сейчас?",
@@ -297,6 +308,7 @@
     "success": "Успех",
     "systemInfo": "Информация о системе",
     "terminal": "Терминал",
+    "title": "Заголовок",
     "unknownError": "Неизвестная ошибка",
     "update": "Обновить",
     "updateAvailable": "Доступно обновление",
@@ -1121,7 +1133,6 @@
     "failedToPurchaseCredits": "Не удалось купить кредиты: {error}",
     "fileLoadError": "Не удалось найти рабочий процесс в {fileName}",
     "fileUploadFailed": "Не удалось загрузить файл",
-    "firebaseAuthNotInitialized": "Firebase Auth не инициализирован",
     "interrupted": "Выполнение было прервано",
     "migrateToLitegraphReroute": "Узлы перенаправления будут удалены в будущих версиях. Нажмите, чтобы перейти на litegraph-native reroute.",
     "no3dScene": "Нет 3D сцены для применения текстуры",
@@ -1132,6 +1143,7 @@
     "pendingTasksDeleted": "Ожидающие задачи удалены",
     "pleaseSelectNodesToGroup": "Пожалуйста, выберите узлы (или другие группы) для создания группы",
     "unableToGetModelFilePath": "Не удалось получить путь к файлу модели",
+    "unauthorizedDomain": "Ваш домен {domain} не авторизован для использования этого сервиса. Пожалуйста, свяжитесь с {email}, чтобы добавить ваш домен в белый список.",
     "updateRequested": "Запрошено обновление",
     "userNotAuthenticated": "Пользователь не аутентифицирован"
   },
@@ -1147,11 +1159,8 @@
     "name": "Имя",
     "notSet": "Не задано",
     "provider": "Способ входа",
-    "providers": {
-      "github": "GitHub",
-      "google": "Google"
-    },
-    "title": "Настройки пользователя"
+    "title": "Настройки пользователя",
+    "updatePassword": "Обновить пароль"
   },
   "validation": {
     "invalidEmail": "Недействительный адрес электронной почты",
@@ -1166,6 +1175,7 @@
       "special": "Должен содержать хотя бы один специальный символ",
       "uppercase": "Должен содержать хотя бы одну заглавную букву"
     },
+    "personalDataConsentRequired": "Вы должны согласиться на обработку ваших персональных данных.",
     "required": "Обязательно"
   },
   "welcome": {

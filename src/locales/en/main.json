@@ -113,7 +113,8 @@
     "login": "Login",
     "learnMore": "Learn more",
     "amount": "Amount",
-    "unknownError": "Unknown error"
+    "unknownError": "Unknown error",
+    "title": "Title"
   },
   "manager": {
     "title": "Custom Nodes Manager",
@@ -1019,7 +1020,10 @@
     "description": "ComfyUI Desktop is installing new dependencies.  This may take a few minutes.",
     "terminalDefaultMessage": "Any console output from the update will be shown here.",
     "updateFoundTitle": "Update Found (v{version})",
-    "updateAvailableMessage": "An update is available. Do you want to restart and update now?"
+    "updateAvailableMessage": "An update is available. Do you want to restart and update now?",
+    "noUpdateFound": "No update found",
+    "errorCheckingUpdate": "Error checking for updates",
+    "errorInstallingUpdate": "Error installing update"
   },
   "clipboard": {
     "successMessage": "Copied to clipboard",
@@ -1081,12 +1085,12 @@
     "failedToFetchLogs": "Failed to fetch server logs",
     "migrateToLitegraphReroute": "Reroute nodes will be removed in future versions. Click to migrate to litegraph-native reroute.",
     "userNotAuthenticated": "User not authenticated",
-    "firebaseAuthNotInitialized": "Firebase Auth not initialized",
     "failedToFetchBalance": "Failed to fetch balance: {error}",
     "failedToCreateCustomer": "Failed to create customer: {error}",
     "failedToInitiateCreditPurchase": "Failed to initiate credit purchase: {error}",
     "failedToAccessBillingPortal": "Failed to access billing portal: {error}",
-    "failedToPurchaseCredits": "Failed to purchase credits: {error}"
+    "failedToPurchaseCredits": "Failed to purchase credits: {error}",
+    "unauthorizedDomain": "Your domain {domain} is not authorized to use this service. Please contact {email} to add your domain to the whitelist."
   },
   "auth": {
     "login": {
@@ -1113,7 +1117,9 @@
       "andText": "and",
       "privacyLink": "Privacy Policy",
       "success": "Login successful",
-      "failed": "Login failed"
+      "failed": "Login failed",
+      "insecureContextWarning": "This connection is insecure (HTTP) - your credentials may be intercepted by attackers if you proceed to login.",
+      "questionsContactPrefix": "Questions? Contact us at"
     },
     "signup": {
       "title": "Create an account",
@@ -1125,12 +1131,18 @@
       "signUpButton": "Sign up",
       "signIn": "Sign in",
       "signUpWithGoogle": "Sign up with Google",
-      "signUpWithGithub": "Sign up with Github"
+      "signUpWithGithub": "Sign up with Github",
+      "regionRestrictionChina": "In accordance with local regulatory requirements, our services are temporarily unavailable to users located in China.",
+      "personalDataConsentLabel": "I agree to the processing of my personal data."
     },
     "signOut": {
       "signOut": "Log Out",
       "success": "Signed out successfully",
       "successDetail": "You have been signed out of your account."
+    },
+    "passwordUpdate": {
+      "success": "Password Updated",
+      "successDetail": "Your password has been updated successfully"
     }
   },
   "validation": {
@@ -1146,7 +1158,8 @@
       "number": "Must contain at least one number",
       "special": "Must contain at least one special character",
       "match": "Passwords must match"
-    }
+    },
+    "personalDataConsentRequired": "You must agree to the processing of your personal data."
   },
   "credits": {
     "credits": "Credits",
@@ -1170,11 +1183,8 @@
     "title": "User Settings",
     "name": "Name",
     "email": "Email",
+    "provider": "Sign-in Provider",
     "notSet": "Not set",
-    "provider": "Sign in method",
-    "providers": {
-      "google": "Google",
-      "github": "GitHub"
-    }
+    "updatePassword": "Update Password"
   }
 }

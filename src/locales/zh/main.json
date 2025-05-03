@@ -18,6 +18,7 @@
       "failed": "登录失败",
       "forgotPassword": "忘记密码？",
       "forgotPasswordError": "发送重置密码邮件失败",
+      "insecureContextWarning": "此连接不安全（HTTP）—如果继续登录，您的凭据可能会被攻击者拦截。",
       "loginButton": "登录",
       "loginWithGithub": "使用Github登录",
       "loginWithGoogle": "使用Google登录",
@@ -28,12 +29,17 @@
       "passwordResetSent": "重置密码邮件已发送",
       "passwordResetSentDetail": "请查收您的电子邮件，点击链接重置密码。",
       "privacyLink": "隐私政策",
+      "questionsContactPrefix": "有疑问？请联系我们：",
       "signInOrSignUp": "登录 / 注册",
       "signUp": "注册",
       "success": "登录成功",
       "termsLink": "使用条款",
       "termsText": "点击“下一步”或“注册”即表示您同意我们的",
       "title": "登录您的账户"
+    },
+    "passwordUpdate": {
+      "success": "密码已更新",
+      "successDetail": "您的密码已成功更新"
     },
     "signOut": {
       "signOut": "退出登录",
@@ -46,6 +52,8 @@
       "emailPlaceholder": "输入您的电子邮件",
       "passwordLabel": "密码",
       "passwordPlaceholder": "输入新密码",
+      "personalDataConsentLabel": "我同意处理我的个人数据。",
+      "regionRestrictionChina": "根据当地法规要求，我们暂时无法为中国地区的用户提供服务。",
       "signIn": "登录",
       "signUpButton": "注册",
       "signUpWithGithub": "使用Github注册",
@@ -163,6 +171,9 @@
   },
   "desktopUpdate": {
     "description": "ComfyUI桌面正在安装新的依赖项。这可能需要几分钟的时间。",
+    "errorCheckingUpdate": "检查更新时出错",
+    "errorInstallingUpdate": "安装更新时出错",
+    "noUpdateFound": "未发现更新",
     "terminalDefaultMessage": "更新过程中的任何控制台输出都将在这里显示。",
     "title": "正在更新ComfyUI桌面",
     "updateAvailableMessage": "有可用的更新。您现在要重启并更新吗？",
@@ -297,6 +308,7 @@
     "success": "成功",
     "systemInfo": "系统信息",
     "terminal": "终端",
+    "title": "标题",
     "unknownError": "未知错误",
     "update": "更新",
     "updateAvailable": "有更新可用",
@@ -1121,7 +1133,6 @@
     "failedToPurchaseCredits": "购买积分失败：{error}",
     "fileLoadError": "无法在 {fileName} 中找到工作流",
     "fileUploadFailed": "文件上传失败",
-    "firebaseAuthNotInitialized": "Firebase 认证未初始化",
     "interrupted": "执行已被中断",
     "migrateToLitegraphReroute": "将来的版本中将删除重定向节点。点击以迁移到litegraph-native重定向。",
     "no3dScene": "没有3D场景可以应用纹理",
@@ -1132,6 +1143,7 @@
     "pendingTasksDeleted": "待处理任务已删除",
     "pleaseSelectNodesToGroup": "请选取节点（或其他组）以创建分组",
     "unableToGetModelFilePath": "无法获取模型文件路径",
+    "unauthorizedDomain": "您的域名 {domain} 未被授权使用此服务。请联系 {email} 将您的域名添加到白名单。",
     "updateRequested": "已请求更新",
     "userNotAuthenticated": "用户未认证"
   },
@@ -1147,11 +1159,8 @@
     "name": "名称",
     "notSet": "未设置",
     "provider": "登录方式",
-    "providers": {
-      "github": "GitHub",
-      "google": "Google"
-    },
-    "title": "用户设置"
+    "title": "用户设置",
+    "updatePassword": "更新密码"
   },
   "validation": {
     "invalidEmail": "无效的电子邮件地址",
@@ -1166,6 +1175,7 @@
       "special": "必须包含至少一个特殊字符",
       "uppercase": "必须包含至少一个大写字母"
     },
+    "personalDataConsentRequired": "您必须同意处理您的个人数据。",
     "required": "必填"
   },
   "welcome": {

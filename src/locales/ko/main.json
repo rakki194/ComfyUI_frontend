@@ -18,6 +18,7 @@
       "failed": "로그인 실패",
       "forgotPassword": "비밀번호를 잊으셨나요?",
       "forgotPasswordError": "비밀번호 재설정 이메일 전송에 실패했습니다",
+      "insecureContextWarning": "이 연결은 안전하지 않습니다(HTTP) - 로그인을 계속하면 자격 증명이 공격자에게 가로채질 수 있습니다.",
       "loginButton": "로그인",
       "loginWithGithub": "Github로 로그인",
       "loginWithGoogle": "구글로 로그인",
@@ -28,12 +29,17 @@
       "passwordResetSent": "비밀번호 재설정 이메일이 전송되었습니다",
       "passwordResetSentDetail": "비밀번호를 재설정할 수 있는 링크가 포함된 이메일을 확인해 주세요.",
       "privacyLink": "개인정보 보호정책",
+      "questionsContactPrefix": "질문이 있으신가요? 문의: ",
       "signInOrSignUp": "로그인 / 회원가입",
       "signUp": "가입하기",
       "success": "로그인 성공",
       "termsLink": "이용 약관",
       "termsText": "\"다음\" 또는 \"가입하기\"를 클릭하면 우리의",
       "title": "계정에 로그인"
+    },
+    "passwordUpdate": {
+      "success": "비밀번호가 업데이트되었습니다",
+      "successDetail": "비밀번호가 성공적으로 업데이트되었습니다"
     },
     "signOut": {
       "signOut": "로그아웃",
@@ -46,6 +52,8 @@
       "emailPlaceholder": "이메일을 입력하세요",
       "passwordLabel": "비밀번호",
       "passwordPlaceholder": "새 비밀번호를 입력하세요",
+      "personalDataConsentLabel": "개인 정보 처리에 동의합니다.",
+      "regionRestrictionChina": "현지 규제 요건에 따라, 본 서비스는 현재 중국 본토에 위치한 사용자에게 제공되지 않습니다.",
       "signIn": "로그인",
       "signUpButton": "가입하기",
       "signUpWithGithub": "Github로 가입하기",
@@ -163,6 +171,9 @@
   },
   "desktopUpdate": {
     "description": "ComfyUI 데스크톱이 새로운 종속성을 설치하고 있습니다. 이 작업은 몇 분 정도 걸릴 수 있습니다.",
+    "errorCheckingUpdate": "업데이트 확인 중 오류가 발생했습니다",
+    "errorInstallingUpdate": "업데이트 설치 중 오류가 발생했습니다",
+    "noUpdateFound": "업데이트를 찾을 수 없습니다",
     "terminalDefaultMessage": "업데이트 콘솔 출력은 여기에 표시됩니다.",
     "title": "ComfyUI 데스크톱 업데이트 중",
     "updateAvailableMessage": "업데이트가 가능합니다. 지금 재시작하고 업데이트하시겠습니까?",
@@ -297,6 +308,7 @@
     "success": "성공",
     "systemInfo": "시스템 정보",
     "terminal": "터미널",
+    "title": "제목",
     "unknownError": "알 수 없는 오류",
     "update": "업데이트",
     "updateAvailable": "업데이트 가능",
@@ -1121,7 +1133,6 @@
     "failedToPurchaseCredits": "크레딧 구매에 실패했습니다: {error}",
     "fileLoadError": "{fileName}에서 워크플로우를 찾을 수 없습니다",
     "fileUploadFailed": "파일 업로드에 실패했습니다",
-    "firebaseAuthNotInitialized": "Firebase 인증이 초기화되지 않았습니다",
     "interrupted": "실행이 중단되었습니다",
     "migrateToLitegraphReroute": "향후 버전에서는 Reroute 노드가 제거됩니다. LiteGraph 에서 자체 제공하는 경유점으로 변환하려면 클릭하세요.",
     "no3dScene": "텍스처를 적용할 3D 장면이 없습니다",
@@ -1132,6 +1143,7 @@
     "pendingTasksDeleted": "보류 중인 작업이 삭제되었습니다",
     "pleaseSelectNodesToGroup": "그룹을 만들기 위해 노드(또는 다른 그룹)를 선택해 주세요",
     "unableToGetModelFilePath": "모델 파일 경로를 가져올 수 없습니다",
+    "unauthorizedDomain": "귀하의 도메인 {domain}은(는) 이 서비스를 사용할 수 있는 권한이 없습니다. 도메인을 허용 목록에 추가하려면 {email}로 문의해 주세요.",
     "updateRequested": "업데이트 요청됨",
     "userNotAuthenticated": "사용자가 인증되지 않았습니다"
   },
@@ -1147,11 +1159,8 @@
     "name": "이름",
     "notSet": "설정되지 않음",
     "provider": "로그인 방법",
-    "providers": {
-      "github": "GitHub",
-      "google": "Google"
-    },
-    "title": "사용자 설정"
+    "title": "사용자 설정",
+    "updatePassword": "비밀번호 업데이트"
   },
   "validation": {
     "invalidEmail": "유효하지 않은 이메일 주소",
@@ -1166,6 +1175,7 @@
       "special": "적어도 하나의 특수 문자를 포함해야 합니다",
       "uppercase": "적어도 하나의 대문자를 포함해야 합니다"
     },
+    "personalDataConsentRequired": "개인 데이터 처리에 동의해야 합니다.",
     "required": "필수"
   },
   "welcome": {

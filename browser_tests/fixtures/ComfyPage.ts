@@ -490,6 +490,7 @@ export class ComfyPage {
 
       const getFileType = (fileName: string) => {
         if (fileName.endsWith('.png')) return 'image/png'
+        if (fileName.endsWith('.svg')) return 'image/svg+xml'
         if (fileName.endsWith('.webp')) return 'image/webp'
         if (fileName.endsWith('.webm')) return 'video/webm'
         if (fileName.endsWith('.json')) return 'application/json'
@@ -923,6 +924,12 @@ export class ComfyPage {
       return window['app'].canvas.ds.convertOffsetToCanvas(pos)
     }, pos)
   }
+
+  /** Get number of DOM widgets on the canvas. */
+  async getDOMWidgetCount() {
+    return await this.page.locator('.dom-widget').count()
+  }
+
   async getNodeRefById(id: NodeId) {
     return new NodeReference(id, this)
   }

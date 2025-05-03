@@ -18,6 +18,7 @@
       "failed": "ログイン失敗",
       "forgotPassword": "パスワードを忘れましたか？",
       "forgotPasswordError": "パスワードリセット用メールの送信に失敗しました",
+      "insecureContextWarning": "この接続は安全ではありません（HTTP）- このままログインを続けると、認証情報が攻撃者に傍受される可能性があります。",
       "loginButton": "ログイン",
       "loginWithGithub": "Githubでログイン",
       "loginWithGoogle": "Googleでログイン",
@@ -28,12 +29,17 @@
       "passwordResetSent": "パスワードリセット用メールを送信しました",
       "passwordResetSentDetail": "パスワードをリセットするためのリンクが記載されたメールをご確認ください。",
       "privacyLink": "プライバシーポリシー",
+      "questionsContactPrefix": "ご不明な点がございますか？お問い合わせはこちら：",
       "signInOrSignUp": "サインイン / サインアップ",
       "signUp": "サインアップ",
       "success": "ログイン成功",
       "termsLink": "利用規約",
       "termsText": "「次へ」または「サインアップ」をクリックすると、私たちの",
       "title": "アカウントにログインする"
+    },
+    "passwordUpdate": {
+      "success": "パスワードが更新されました",
+      "successDetail": "パスワードが正常に更新されました"
     },
     "signOut": {
       "signOut": "ログアウト",
@@ -46,6 +52,8 @@
       "emailPlaceholder": "メールアドレスを入力してください",
       "passwordLabel": "パスワード",
       "passwordPlaceholder": "新しいパスワードを入力してください",
+      "personalDataConsentLabel": "個人データの取扱いに同意します。",
+      "regionRestrictionChina": "現地の規制要件に従い、当社のサービスは現在中国本土のユーザーにはご利用いただけません。",
       "signIn": "サインイン",
       "signUpButton": "サインアップ",
       "signUpWithGithub": "Githubでサインアップ",
@@ -163,6 +171,9 @@
   },
   "desktopUpdate": {
     "description": "ComfyUIデスクトップは新しい依存関係をインストールしています。これには数分かかる場合があります。",
+    "errorCheckingUpdate": "アップデートの確認中にエラーが発生しました",
+    "errorInstallingUpdate": "アップデートのインストール中にエラーが発生しました",
+    "noUpdateFound": "アップデートは見つかりませんでした",
     "terminalDefaultMessage": "更新からの任意のコンソール出力はここに表示されます。",
     "title": "ComfyUIデスクトップの更新",
     "updateAvailableMessage": "アップデートが利用可能です。今すぐ再起動してアップデートしますか？",
@@ -297,6 +308,7 @@
     "success": "成功",
     "systemInfo": "システム情報",
     "terminal": "ターミナル",
+    "title": "タイトル",
     "unknownError": "不明なエラー",
     "update": "更新",
     "updateAvailable": "更新が利用可能",
@@ -1121,7 +1133,6 @@
     "failedToPurchaseCredits": "クレジットの購入に失敗しました: {error}",
     "fileLoadError": "{fileName}でワークフローが見つかりません",
     "fileUploadFailed": "ファイルのアップロードに失敗しました",
-    "firebaseAuthNotInitialized": "Firebase認証が初期化されていません",
     "interrupted": "実行が中断されました",
     "migrateToLitegraphReroute": "将来のバージョンではRerouteノードが削除されます。litegraph-native rerouteに移行するにはクリックしてください。",
     "no3dScene": "テクスチャを適用する3Dシーンがありません",
@@ -1132,6 +1143,7 @@
     "pendingTasksDeleted": "保留中のタスクが削除されました",
     "pleaseSelectNodesToGroup": "グループを作成するためのノード（または他のグループ）を選択してください",
     "unableToGetModelFilePath": "モデルファイルのパスを取得できません",
+    "unauthorizedDomain": "あなたのドメイン {domain} はこのサービスを利用する権限がありません。ご利用のドメインをホワイトリストに追加するには、{email} までご連絡ください。",
     "updateRequested": "更新が要求されました",
     "userNotAuthenticated": "ユーザーが認証されていません"
   },
@@ -1147,11 +1159,8 @@
     "name": "名前",
     "notSet": "未設定",
     "provider": "サインイン方法",
-    "providers": {
-      "github": "GitHub",
-      "google": "Google"
-    },
-    "title": "ユーザー設定"
+    "title": "ユーザー設定",
+    "updatePassword": "パスワードを更新"
   },
   "validation": {
     "invalidEmail": "無効なメールアドレス",
@@ -1166,6 +1175,7 @@
       "special": "少なくとも1つの特殊文字を含む必要があります",
       "uppercase": "少なくとも1つの大文字を含む必要があります"
     },
+    "personalDataConsentRequired": "個人データの処理に同意する必要があります。",
     "required": "必須"
   },
   "welcome": {

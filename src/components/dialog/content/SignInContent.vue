@@ -17,9 +17,18 @@
       </p>
     </div>
 
+    <Message v-if="!isSecureContext" severity="warn" class="mb-4">
+      {{ t('auth.login.insecureContextWarning') }}
+    </Message>
+
     <!-- Form -->
     <SignInForm v-if="isSignIn" @submit="signInWithEmail" />
-    <SignUpForm v-else @submit="signInWithEmail" />
+    <template v-else>
+      <Message v-if="userIsInChina" severity="warn" class="mb-4">
+        {{ t('auth.signup.regionRestrictionChina') }}
+      </Message>
+      <SignUpForm v-else @submit="signUpWithEmail" />
+    </template>
 
     <!-- Divider -->
     <Divider align="center" layout="horizontal" class="my-8">
@@ -58,7 +67,7 @@
         }}
       </Button>
     </div>
-    <!-- Terms -->
+    <!-- Terms & Contact -->
     <p class="text-xs text-muted mt-8">
       {{ t('auth.login.termsText') }}
       <a
@@ -74,9 +83,12 @@
         target="_blank"
         class="text-blue-500 cursor-pointer"
       >
-        {{ t('auth.login.privacyLink') }}
-      </a>
-      .
+        {{ t('auth.login.privacyLink') }} </a
+      >.
+      {{ t('auth.login.questionsContactPrefix') }}
+      <a href="mailto:hello@comfy.org" class="text-blue-500 cursor-pointer">
+        hello@comfy.org</a
+      >.
     </p>
   </div>
 </template>
@@ -84,49 +96,55 @@
 <script setup lang="ts">
 import Button from 'primevue/button'
 import Divider from 'primevue/divider'
-import { ref } from 'vue'
+import Message from 'primevue/message'
+import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { useErrorHandling } from '@/composables/useErrorHandling'
 import { SignInData, SignUpData } from '@/schemas/signInSchema'
-import { useFirebaseAuthStore } from '@/stores/firebaseAuthStore'
+import { useFirebaseAuthService } from '@/services/firebaseAuthService'
+import { isInChina } from '@/utils/networkUtil'
 
 import SignInForm from './signin/SignInForm.vue'
 import SignUpForm from './signin/SignUpForm.vue'
-
-const { t } = useI18n()
 
 const { onSuccess } = defineProps<{
   onSuccess: () => void
 }>()
 
-const firebaseAuthStore = useFirebaseAuthStore()
-const { wrapWithErrorHandlingAsync } = useErrorHandling()
-
+const { t } = useI18n()
+const authService = useFirebaseAuthService()
+const isSecureContext = window.isSecureContext
 const isSignIn = ref(true)
 const toggleState = () => {
   isSignIn.value = !isSignIn.value
 }
 
-const signInWithGoogle = wrapWithErrorHandlingAsync(async () => {
-  await firebaseAuthStore.loginWithGoogle()
-  onSuccess()
-})
-
-const signInWithGithub = wrapWithErrorHandlingAsync(async () => {
-  await firebaseAuthStore.loginWithGithub()
-  onSuccess()
-})
-
-const signInWithEmail = wrapWithErrorHandlingAsync(
-  async (values: SignInData | SignUpData) => {
-    const { email, password } = values
-    if (isSignIn.value) {
-      await firebaseAuthStore.login(email, password)
-    } else {
-      await firebaseAuthStore.register(email, password)
-    }
+const signInWithGoogle = async () => {
+  if (await authService.signInWithGoogle()) {
     onSuccess()
   }
-)
+}
+
+const signInWithGithub = async () => {
+  if (await authService.signInWithGithub()) {
+    onSuccess()
+  }
+}
+
+const signInWithEmail = async (values: SignInData) => {
+  if (await authService.signInWithEmail(values.email, values.password)) {
+    onSuccess()
+  }
+}
+
+const signUpWithEmail = async (values: SignUpData) => {
+  if (await authService.signUpWithEmail(values.email, values.password)) {
+    onSuccess()
+  }
+}
+
+const userIsInChina = ref(false)
+onMounted(async () => {
+  userIsInChina.value = await isInChina()
+})
 </script>
