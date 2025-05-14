@@ -28,7 +28,6 @@
     class="w-full h-full touch-none"
   />
 
-  <NodeBadge />
   <NodeTooltip v-if="tooltipEnabled" />
   <NodeSearchboxPopover />
 
@@ -46,6 +45,7 @@
 
 <script setup lang="ts">
 import type { LGraphNode } from '@comfyorg/litegraph'
+import { useEventListener } from '@vueuse/core'
 import { computed, onMounted, ref, watch, watchEffect } from 'vue'
 
 import LiteGraphCanvasSplitterOverlay from '@/components/LiteGraphCanvasSplitterOverlay.vue'
@@ -63,6 +63,7 @@ import NodeSearchboxPopover from '@/components/searchbox/NodeSearchBoxPopover.vu
 import SideToolbar from '@/components/sidebar/SideToolbar.vue'
 import SecondRowWorkflowTabs from '@/components/topbar/SecondRowWorkflowTabs.vue'
 import { useChainCallback } from '@/composables/functional/useChainCallback'
+import { useNodeBadge } from '@/composables/node/useNodeBadge'
 import { useCanvasDrop } from '@/composables/useCanvasDrop'
 import { useContextMenuTranslation } from '@/composables/useContextMenuTranslation'
 import { useCopy } from '@/composables/useCopy'
@@ -85,6 +86,7 @@ import { useExecutionStore } from '@/stores/executionStore'
 import { useCanvasStore } from '@/stores/graphStore'
 import { useNodeDefStore } from '@/stores/nodeDefStore'
 import { useSettingStore } from '@/stores/settingStore'
+import { useToastStore } from '@/stores/toastStore'
 import { useColorPaletteStore } from '@/stores/workspace/colorPaletteStore'
 import { useWorkspaceStore } from '@/stores/workspaceStore'
 
@@ -97,6 +99,7 @@ const nodeDefStore = useNodeDefStore()
 const workspaceStore = useWorkspaceStore()
 const canvasStore = useCanvasStore()
 const executionStore = useExecutionStore()
+const toastStore = useToastStore()
 const betaMenuEnabled = computed(
   () => settingStore.get('Comfy.UseNewMenu') !== 'Disabled'
 )
@@ -224,30 +227,17 @@ watch(
   }
 )
 
-// Save the drag & scale info in the serialized workflow if the setting is enabled
-watch(
-  [
-    () => canvasStore.canvas,
-    () => settingStore.get('Comfy.EnableWorkflowViewRestore')
-  ],
-  ([canvas, enableWorkflowViewRestore]) => {
-    const extra = canvas?.graph?.extra
-    if (!extra) return
-
-    if (enableWorkflowViewRestore) {
-      extra.ds = {
-        get scale() {
-          return canvas.ds.scale
-        },
-        get offset() {
-          const [x, y] = canvas.ds.offset
-          return [x, y]
-        }
-      }
-    } else {
-      delete extra.ds
-    }
-  }
+useEventListener(
+  canvasRef,
+  'litegraph:no-items-selected',
+  () => {
+    toastStore.add({
+      severity: 'warn',
+      summary: 'No items selected',
+      life: 2000
+    })
+  },
+  { passive: true }
 )
 
 const loadCustomNodesI18n = async () => {
@@ -266,6 +256,7 @@ const workflowPersistence = useWorkflowPersistence()
 // @ts-expect-error fixme ts strict error
 useCanvasDrop(canvasRef)
 useLitegraphSettings()
+useNodeBadge()
 
 onMounted(async () => {
   useGlobalLitegraph()
@@ -279,7 +270,7 @@ onMounted(async () => {
   workspaceStore.spinner = true
   // ChangeTracker needs to be initialized before setup, as it will overwrite
   // some listeners of litegraph canvas.
-  ChangeTracker.init(comfyApp)
+  ChangeTracker.init()
   await loadCustomNodesI18n()
   try {
     await settingStore.loadSettingValues()
@@ -304,10 +295,8 @@ onMounted(async () => {
   canvasStore.canvas.render_canvas_border = false
   workspaceStore.spinner = false
 
-  // @ts-expect-error fixme ts strict error
-  window['app'] = comfyApp
-  // @ts-expect-error fixme ts strict error
-  window['graph'] = comfyApp.graph
+  window.app = comfyApp
+  window.graph = comfyApp.graph
 
   comfyAppReady.value = true
 

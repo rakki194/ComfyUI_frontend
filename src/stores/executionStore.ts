@@ -1,12 +1,14 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 
+import { useNodeProgressText } from '@/composables/node/useNodeProgressText'
 import type {
   ExecutedWsMessage,
   ExecutionCachedWsMessage,
   ExecutionErrorWsMessage,
   ExecutionStartWsMessage,
   NodeError,
+  ProgressTextWsMessage,
   ProgressWsMessage
 } from '@/schemas/apiSchema'
 import type {
@@ -15,6 +17,7 @@ import type {
   NodeId
 } from '@/schemas/comfyWorkflowSchema'
 import { api } from '@/scripts/api'
+import { app } from '@/scripts/app'
 
 import { ComfyWorkflow } from './workflowStore'
 
@@ -103,6 +106,7 @@ export const useExecutionStore = defineStore('execution', () => {
       handleExecutionError as EventListener
     )
   }
+  api.addEventListener('progress_text', handleProgressText as EventListener)
 
   function unbindExecutionEvents() {
     api.removeEventListener(
@@ -120,6 +124,10 @@ export const useExecutionStore = defineStore('execution', () => {
     api.removeEventListener(
       'execution_error',
       handleExecutionError as EventListener
+    )
+    api.removeEventListener(
+      'progress_text',
+      handleProgressText as EventListener
     )
   }
 
@@ -175,6 +183,16 @@ export const useExecutionStore = defineStore('execution', () => {
 
   function handleExecutionError(e: CustomEvent<ExecutionErrorWsMessage>) {
     lastExecutionError.value = e.detail
+  }
+
+  function handleProgressText(e: CustomEvent<ProgressTextWsMessage>) {
+    const { nodeId, text } = e.detail
+    if (!text || !nodeId) return
+
+    const node = app.graph.getNodeById(nodeId)
+    if (!node) return
+
+    useNodeProgressText().showTextPreview(node, text)
   }
 
   function storePrompt({

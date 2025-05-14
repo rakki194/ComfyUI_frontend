@@ -12,6 +12,7 @@ import { ModelExporter } from './ModelExporter'
 import { ModelManager } from './ModelManager'
 import { NodeStorage } from './NodeStorage'
 import { PreviewManager } from './PreviewManager'
+import { RecordingManager } from './RecordingManager'
 import { SceneManager } from './SceneManager'
 import { ViewHelperManager } from './ViewHelperManager'
 import {
@@ -38,6 +39,7 @@ class Load3d {
   protected previewManager: PreviewManager
   protected loaderManager: LoaderManager
   protected modelManager: ModelManager
+  protected recordingManager: RecordingManager
 
   STATUS_MOUSE_ON_NODE: boolean
   STATUS_MOUSE_ON_SCENE: boolean
@@ -118,6 +120,11 @@ class Load3d {
 
     this.loaderManager = new LoaderManager(this.modelManager, this.eventManager)
 
+    this.recordingManager = new RecordingManager(
+      this.sceneManager.scene,
+      this.renderer,
+      this.eventManager
+    )
     this.sceneManager.init()
     this.cameraManager.init()
     this.controlsManager.init()
@@ -222,6 +229,7 @@ class Load3d {
     return (
       this.STATUS_MOUSE_ON_NODE ||
       this.STATUS_MOUSE_ON_SCENE ||
+      this.isRecording() ||
       !this.INITIAL_RENDER_DONE
     )
   }
@@ -439,7 +447,41 @@ class Load3d {
     return this.nodeStorage.loadNodeProperty(name, defaultValue)
   }
 
-  remove(): void {
+  public async startRecording(): Promise<void> {
+    this.viewHelperManager.visibleViewHelper(false)
+
+    return this.recordingManager.startRecording()
+  }
+
+  public stopRecording(): void {
+    this.viewHelperManager.visibleViewHelper(true)
+
+    this.recordingManager.stopRecording()
+
+    this.eventManager.emitEvent('recordingStatusChange', false)
+  }
+
+  public isRecording(): boolean {
+    return this.recordingManager.getIsRecording()
+  }
+
+  public getRecordingDuration(): number {
+    return this.recordingManager.getRecordingDuration()
+  }
+
+  public getRecordingData(): string | null {
+    return this.recordingManager.getRecordingData()
+  }
+
+  public exportRecording(filename?: string): void {
+    this.recordingManager.exportRecording(filename)
+  }
+
+  public clearRecording(): void {
+    this.recordingManager.clearRecording()
+  }
+
+  public remove(): void {
     if (this.animationFrameId !== null) {
       cancelAnimationFrame(this.animationFrameId)
     }
@@ -452,6 +494,7 @@ class Load3d {
     this.previewManager.dispose()
     this.loaderManager.dispose()
     this.modelManager.dispose()
+    this.recordingManager.dispose()
 
     this.renderer.dispose()
     this.renderer.domElement.remove()

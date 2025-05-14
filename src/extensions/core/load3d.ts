@@ -1,5 +1,7 @@
-import { IWidget } from '@comfyorg/litegraph'
-import { IStringWidget } from '@comfyorg/litegraph/dist/types/widgets'
+import type {
+  IComboWidget,
+  IStringWidget
+} from '@comfyorg/litegraph/dist/types/widgets'
 import { nextTick } from 'vue'
 
 import Load3D from '@/components/load3d/Load3D.vue'
@@ -116,8 +118,8 @@ useExtensionService().registerExtension({
         fileInput.onchange = async () => {
           if (fileInput.files?.length) {
             const modelWidget = node.widgets?.find(
-              (w: IWidget) => w.name === 'model_file'
-            ) as IStringWidget
+              (w) => w.name === 'model_file'
+            ) as IComboWidget & { options: { values: string[] } }
 
             node.properties['Texture'] = undefined
 
@@ -154,9 +156,7 @@ useExtensionService().registerExtension({
         node.addWidget('button', 'clear', 'clear', () => {
           useLoad3dService().getLoad3d(node)?.clearModel()
 
-          const modelWidget = node.widgets?.find(
-            (w: IWidget) => w.name === 'model_file'
-          )
+          const modelWidget = node.widgets?.find((w) => w.name === 'model_file')
           if (modelWidget) {
             modelWidget.value = ''
 
@@ -202,18 +202,18 @@ useExtensionService().registerExtension({
 
       const config = new Load3DConfiguration(load3d)
 
-      const modelWidget = node.widgets?.find(
-        (w: IWidget) => w.name === 'model_file'
-      )
-      const width = node.widgets?.find((w: IWidget) => w.name === 'width')
-      const height = node.widgets?.find((w: IWidget) => w.name === 'height')
-      const sceneWidget = node.widgets?.find((w: IWidget) => w.name === 'image')
+      const modelWidget = node.widgets?.find((w) => w.name === 'model_file')
+      const width = node.widgets?.find((w) => w.name === 'width')
+      const height = node.widgets?.find((w) => w.name === 'height')
+      const sceneWidget = node.widgets?.find((w) => w.name === 'image')
 
       if (modelWidget && width && height && sceneWidget) {
         config.configure('input', modelWidget, cameraState, width, height)
 
         sceneWidget.serializeValue = async () => {
           node.properties['Camera Info'] = load3d.getCameraState()
+
+          load3d.stopRecording()
 
           const {
             scene: imageData,
@@ -234,13 +234,26 @@ useExtensionService().registerExtension({
 
           load3d.handleResize()
 
-          return {
+          const returnVal = {
             image: `threed/${data.name} [temp]`,
             mask: `threed/${dataMask.name} [temp]`,
             normal: `threed/${dataNormal.name} [temp]`,
             lineart: `threed/${dataLineart.name} [temp]`,
-            camera_info: node.properties['Camera Info']
+            camera_info: node.properties['Camera Info'],
+            recording: ''
           }
+
+          const recordingData = load3d.getRecordingData()
+
+          if (recordingData) {
+            const [recording] = await Promise.all([
+              Load3dUtils.uploadTempImage(recordingData, 'recording', 'mp4')
+            ])
+
+            returnVal['recording'] = `threed/${recording.name} [temp]`
+          }
+
+          return returnVal
         }
       }
     }
@@ -260,7 +273,7 @@ useExtensionService().registerExtension({
         fileInput.onchange = async () => {
           if (fileInput.files?.length) {
             const modelWidget = node.widgets?.find(
-              (w: IWidget) => w.name === 'model_file'
+              (w) => w.name === 'model_file'
             ) as IStringWidget
 
             const uploadPath = await Load3dUtils.uploadFile(
@@ -296,9 +309,7 @@ useExtensionService().registerExtension({
         node.addWidget('button', 'clear', 'clear', () => {
           useLoad3dService().getLoad3d(node)?.clearModel()
 
-          const modelWidget = node.widgets?.find(
-            (w: IWidget) => w.name === 'model_file'
-          )
+          const modelWidget = node.widgets?.find((w) => w.name === 'model_file')
           if (modelWidget) {
             modelWidget.value = ''
           }
@@ -335,20 +346,18 @@ useExtensionService().registerExtension({
 
     await nextTick()
 
-    const sceneWidget = node.widgets?.find((w: IWidget) => w.name === 'image')
+    const sceneWidget = node.widgets?.find((w) => w.name === 'image')
 
     const load3d = useLoad3dService().getLoad3d(node) as Load3dAnimation
 
-    const modelWidget = node.widgets?.find(
-      (w: IWidget) => w.name === 'model_file'
-    )
+    const modelWidget = node.widgets?.find((w) => w.name === 'model_file')
 
     let cameraState = node.properties['Camera Info']
 
-    const width = node.widgets?.find((w: IWidget) => w.name === 'width')
-    const height = node.widgets?.find((w: IWidget) => w.name === 'height')
+    const width = node.widgets?.find((w) => w.name === 'width')
+    const height = node.widgets?.find((w) => w.name === 'height')
 
-    if (modelWidget && width && height && sceneWidget) {
+    if (modelWidget && width && height && sceneWidget && load3d) {
       const config = new Load3DConfiguration(load3d)
 
       config.configure('input', modelWidget, cameraState, width, height)
@@ -357,6 +366,10 @@ useExtensionService().registerExtension({
         node.properties['Camera Info'] = load3d.getCameraState()
 
         load3d.toggleAnimation(false)
+
+        if (load3d.isRecording()) {
+          load3d.stopRecording()
+        }
 
         const {
           scene: imageData,
@@ -375,12 +388,23 @@ useExtensionService().registerExtension({
 
         load3d.handleResize()
 
-        return {
+        const returnVal = {
           image: `threed/${data.name} [temp]`,
           mask: `threed/${dataMask.name} [temp]`,
           normal: `threed/${dataNormal.name} [temp]`,
-          camera_info: node.properties['Camera Info']
+          camera_info: node.properties['Camera Info'],
+          recording: ''
         }
+
+        const recordingData = load3d.getRecordingData()
+        if (recordingData) {
+          const [recording] = await Promise.all([
+            Load3dUtils.uploadTempImage(recordingData, 'recording', 'mp4')
+          ])
+          returnVal['recording'] = `threed/${recording.name} [temp]`
+        }
+
+        return returnVal
       }
     }
   }
@@ -447,9 +471,7 @@ useExtensionService().registerExtension({
 
       let cameraState = message.result[1]
 
-      const modelWidget = node.widgets?.find(
-        (w: IWidget) => w.name === 'model_file'
-      )
+      const modelWidget = node.widgets?.find((w) => w.name === 'model_file')
 
       if (load3d && modelWidget) {
         modelWidget.value = filePath.replaceAll('\\', '/')
@@ -523,9 +545,7 @@ useExtensionService().registerExtension({
 
       const load3d = useLoad3dService().getLoad3d(node)
 
-      const modelWidget = node.widgets?.find(
-        (w: IWidget) => w.name === 'model_file'
-      )
+      const modelWidget = node.widgets?.find((w) => w.name === 'model_file')
       if (load3d && modelWidget) {
         modelWidget.value = filePath.replaceAll('\\', '/')
 
