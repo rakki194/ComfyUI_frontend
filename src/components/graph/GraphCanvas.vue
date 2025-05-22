@@ -73,7 +73,7 @@ import { usePaste } from '@/composables/usePaste'
 import { useWorkflowAutoSave } from '@/composables/useWorkflowAutoSave'
 import { useWorkflowPersistence } from '@/composables/useWorkflowPersistence'
 import { CORE_SETTINGS } from '@/constants/coreSettings'
-import { i18n } from '@/i18n'
+import { i18n, t } from '@/i18n'
 import type { NodeId } from '@/schemas/comfyWorkflowSchema'
 import { UnauthorizedError, api } from '@/scripts/api'
 import { app as comfyApp } from '@/scripts/app'
@@ -171,6 +171,20 @@ watch(
     await colorPaletteService.loadColorPalette(currentPaletteId)
   }
 )
+
+watch(
+  () => settingStore.get('Comfy.Canvas.BackgroundImage'),
+  async () => {
+    if (!canvasStore.canvas) return
+    const currentPaletteId = colorPaletteStore.activePaletteId
+    if (!currentPaletteId) return
+
+    // Reload color palette to apply background image
+    await colorPaletteService.loadColorPalette(currentPaletteId)
+    // Mark background canvas as dirty
+    canvasStore.canvas.setDirty(false, true)
+  }
+)
 watch(
   () => colorPaletteStore.activePaletteId,
   async (newValue) => {
@@ -233,7 +247,7 @@ useEventListener(
   () => {
     toastStore.add({
       severity: 'warn',
-      summary: 'No items selected',
+      summary: t('toastMessages.nothingSelected'),
       life: 2000
     })
   },

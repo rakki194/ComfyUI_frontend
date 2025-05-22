@@ -4,26 +4,6 @@
     "title": "Nœud(s) API",
     "totalCost": "Coût total"
   },
-  "apiNodesNews": {
-    "introducing": "Présentation",
-    "steps": {
-      "step1": {
-        "subtitle": "Paramètres > Utilisateur > Connexion",
-        "title": "Connectez-vous / Créez un compte :"
-      },
-      "step2": {
-        "subtitle": "Paramètres > Crédits > Acheter des crédits",
-        "title": "Achetez des crédits :"
-      },
-      "step3": {
-        "title": "Trouvez les nouveaux nœuds API dans la section 'API Node' et ajoutez-les à la toile"
-      },
-      "step4": {
-        "title": "Lancez !"
-      }
-    },
-    "subtitle": "Tous les modèles externes sont désormais disponibles dans ComfyUI"
-  },
   "apiNodesSignInDialog": {
     "message": "Ce flux de travail contient des nœuds API, qui nécessitent que vous soyez connecté à votre compte pour pouvoir fonctionner.",
     "title": "Connexion requise pour utiliser les nœuds API"
@@ -101,6 +81,13 @@
       "signUpWithGoogle": "S'inscrire avec Google",
       "title": "Créer un compte"
     }
+  },
+  "chatHistory": {
+    "cancelEdit": "Annuler",
+    "cancelEditTooltip": "Annuler la modification",
+    "copiedTooltip": "Copié",
+    "copyTooltip": "Copier le message dans le presse-papiers",
+    "editTooltip": "Modifier le message"
   },
   "clipboard": {
     "errorMessage": "Échec de la copie dans le presse-papiers",
@@ -261,11 +248,13 @@
     "all": "Tout",
     "amount": "Quantité",
     "apply": "Appliquer",
+    "audioFailedToLoad": "Échec du chargement de l'audio",
     "back": "Retour",
     "cancel": "Annuler",
     "capture": "capture",
     "category": "Catégorie",
     "choose_file_to_upload": "choisissez le fichier à télécharger",
+    "clear": "Effacer",
     "close": "Fermer",
     "color": "Couleur",
     "comingSoon": "Bientôt disponible",
@@ -277,8 +266,10 @@
     "continue": "Continuer",
     "control_after_generate": "contrôle après génération",
     "control_before_generate": "contrôle avant génération",
+    "copy": "Copier",
     "copyToClipboard": "Copier dans le presse-papiers",
     "currentUser": "Utilisateur actuel",
+    "customBackground": "Arrière-plan personnalisé",
     "customize": "Personnaliser",
     "customizeFolder": "Personnaliser le dossier",
     "delete": "Supprimer",
@@ -288,6 +279,7 @@
     "disableAll": "Désactiver tout",
     "disabling": "Désactivation",
     "download": "Télécharger",
+    "edit": "Modifier",
     "empty": "Vide",
     "enableAll": "Activer tout",
     "enabled": "Activé",
@@ -303,6 +295,7 @@
     "goToNode": "Aller au nœud",
     "icon": "Icône",
     "imageFailedToLoad": "Échec du chargement de l'image",
+    "imageUrl": "URL de l'image",
     "import": "Importer",
     "inProgress": "En cours",
     "insert": "Insérer",
@@ -353,6 +346,7 @@
     "searchNodes": "Rechercher des nœuds",
     "searchSettings": "Rechercher des paramètres",
     "searchWorkflows": "Rechercher des flux de travail",
+    "setAsBackground": "Définir comme arrière-plan",
     "settings": "Paramètres",
     "showReport": "Afficher le rapport",
     "sort": "Trier",
@@ -509,6 +503,8 @@
     "submitErrorReport": "Soumettre un rapport d'erreur (Facultatif)",
     "systemStats": "Statistiques du système",
     "validation": {
+      "descriptionRequired": "La description est requise",
+      "helpTypeRequired": "Le type d'aide est requis",
       "invalidEmail": "Veuillez entrer une adresse e-mail valide",
       "maxLength": "Message trop long",
       "selectIssueType": "Veuillez sélectionner un type de problème"
@@ -529,6 +525,7 @@
     "fov": "FOV",
     "light": "Lumière",
     "lightIntensity": "Intensité de la lumière",
+    "loadingBackgroundImage": "Chargement de l’image d’arrière-plan",
     "loadingModel": "Chargement du modèle 3D...",
     "materialMode": "Mode Matériel",
     "materialModes": {
@@ -718,6 +715,7 @@
     "Open DevTools": "Ouvrir DevTools",
     "Open Inputs Folder": "Ouvrir le dossier des entrées",
     "Open Logs Folder": "Ouvrir le dossier des journaux",
+    "Open Mask Editor for Selected Node": "Ouvrir l’éditeur de mask pour le nœud sélectionné",
     "Open Models Folder": "Ouvrir le dossier des modèles",
     "Open Outputs Folder": "Ouvrir le dossier des sorties",
     "Open Sign In Dialog": "Ouvrir la boîte de dialogue de connexion",
@@ -1008,6 +1006,7 @@
   },
   "settingsCategories": {
     "3D": "3D",
+    "API Nodes": "Nœuds API",
     "About": "À Propos",
     "Appearance": "Apparence",
     "BrushAdjustment": "Ajustement de Brosse",
@@ -1354,6 +1353,7 @@
     "no3dSceneToExport": "Aucune scène 3D à exporter",
     "noTemplatesToExport": "Aucun modèle à exporter",
     "nodeDefinitionsUpdated": "Définitions de nœuds mises à jour",
+    "nothingSelected": "Aucune sélection",
     "nothingToGroup": "Rien à regrouper",
     "nothingToQueue": "Rien à ajouter à la file d’attente",
     "pendingTasksDeleted": "Tâches en attente supprimées",

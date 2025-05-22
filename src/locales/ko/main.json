@@ -4,26 +4,6 @@
     "title": "API 노드(들)",
     "totalCost": "총 비용"
   },
-  "apiNodesNews": {
-    "introducing": "소개합니다",
-    "steps": {
-      "step1": {
-        "subtitle": "설정 > 사용자 > 로그인",
-        "title": "로그인/계정 생성:"
-      },
-      "step2": {
-        "subtitle": "설정 > 크레딧 > 크레딧 구매",
-        "title": "크레딧 구매:"
-      },
-      "step3": {
-        "title": "'API Node' 섹션에서 새로운 API 노드를 찾아 캔버스에 추가하세요"
-      },
-      "step4": {
-        "title": "실행!"
-      }
-    },
-    "subtitle": "모든 외부 모델이 이제 ComfyUI에서 사용 가능합니다"
-  },
   "apiNodesSignInDialog": {
     "message": "이 워크플로우에는 API 노드가 포함되어 있으며, 실행하려면 계정에 로그인해야 합니다.",
     "title": "API 노드 사용에 필요한 로그인"
@@ -101,6 +81,13 @@
       "signUpWithGoogle": "구글로 가입하기",
       "title": "계정 생성"
     }
+  },
+  "chatHistory": {
+    "cancelEdit": "취소",
+    "cancelEditTooltip": "편집 취소",
+    "copiedTooltip": "복사됨",
+    "copyTooltip": "메시지를 클립보드에 복사",
+    "editTooltip": "메시지 편집"
   },
   "clipboard": {
     "errorMessage": "클립보드에 복사하지 못했습니다",
@@ -261,11 +248,13 @@
     "all": "모두",
     "amount": "수량",
     "apply": "적용",
+    "audioFailedToLoad": "오디오를 불러오지 못했습니다",
     "back": "뒤로",
     "cancel": "취소",
     "capture": "캡처",
     "category": "카테고리",
     "choose_file_to_upload": "업로드할 파일 선택",
+    "clear": "지우기",
     "close": "닫기",
     "color": "색상",
     "comingSoon": "곧 출시 예정",
@@ -277,8 +266,10 @@
     "continue": "계속",
     "control_after_generate": "생성 후 제어",
     "control_before_generate": "생성 전 제어",
+    "copy": "복사",
     "copyToClipboard": "클립보드에 복사",
     "currentUser": "현재 사용자",
+    "customBackground": "맞춤 배경",
     "customize": "사용자 정의",
     "customizeFolder": "폴더 사용자 정의",
     "delete": "삭제",
@@ -288,6 +279,7 @@
     "disableAll": "모두 비활성화",
     "disabling": "비활성화 중",
     "download": "다운로드",
+    "edit": "편집",
     "empty": "비어 있음",
     "enableAll": "모두 활성화",
     "enabled": "활성화됨",
@@ -303,6 +295,7 @@
     "goToNode": "노드로 이동",
     "icon": "아이콘",
     "imageFailedToLoad": "이미지를 로드하지 못했습니다.",
+    "imageUrl": "이미지 URL",
     "import": "가져오기",
     "inProgress": "진행 중",
     "insert": "삽입",
@@ -353,6 +346,7 @@
     "searchNodes": "노드 검색",
     "searchSettings": "설정 검색",
     "searchWorkflows": "워크플로 검색",
+    "setAsBackground": "배경으로 설정",
     "settings": "설정",
     "showReport": "보고서 보기",
     "sort": "정렬",
@@ -509,6 +503,8 @@
     "submitErrorReport": "오류 보고서 제출 (선택 사항)",
     "systemStats": "시스템 통계",
     "validation": {
+      "descriptionRequired": "설명은 필수입니다",
+      "helpTypeRequired": "도움 유형은 필수입니다",
       "invalidEmail": "유효한 이메일 주소를 입력해 주세요",
       "maxLength": "메시지가 너무 깁니다",
       "selectIssueType": "문제 유형을 선택해 주세요"
@@ -529,6 +525,7 @@
     "fov": "FOV",
     "light": "빛",
     "lightIntensity": "조명 강도",
+    "loadingBackgroundImage": "배경 이미지 불러오는 중",
     "loadingModel": "3D 모델 로딩 중...",
     "materialMode": "재질 모드",
     "materialModes": {
@@ -718,6 +715,7 @@
     "Open DevTools": "개발자 도구 열기",
     "Open Inputs Folder": "입력 폴더 열기",
     "Open Logs Folder": "로그 폴더 열기",
+    "Open Mask Editor for Selected Node": "선택한 노드의 마스크 에디터 열기",
     "Open Models Folder": "모델 폴더 열기",
     "Open Outputs Folder": "출력 폴더 열기",
     "Open Sign In Dialog": "로그인 대화 상자 열기",
@@ -1008,6 +1006,7 @@
   },
   "settingsCategories": {
     "3D": "3D",
+    "API Nodes": "API 노드",
     "About": "정보",
     "Appearance": "모양",
     "BrushAdjustment": "브러시 조정",
@@ -1354,6 +1353,7 @@
     "no3dSceneToExport": "내보낼 3D 장면이 없습니다",
     "noTemplatesToExport": "내보낼 템플릿이 없습니다",
     "nodeDefinitionsUpdated": "노드 정의가 업데이트되었습니다",
+    "nothingSelected": "선택된 항목이 없습니다",
     "nothingToGroup": "그룹화할 항목이 없습니다",
     "nothingToQueue": "대기열에 추가할 항목이 없습니다",
     "pendingTasksDeleted": "보류 중인 작업이 삭제되었습니다",

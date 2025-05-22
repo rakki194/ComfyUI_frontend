@@ -4,26 +4,6 @@
     "title": "API Node(s)",
     "totalCost": "Общая стоимость"
   },
-  "apiNodesNews": {
-    "introducing": "Представляем",
-    "steps": {
-      "step1": {
-        "subtitle": "Настройки > Пользователь > Войти",
-        "title": "Войти/Создать аккаунт:"
-      },
-      "step2": {
-        "subtitle": "Настройки > Кредиты > Купить кредиты",
-        "title": "Купить кредиты:"
-      },
-      "step3": {
-        "title": "Найдите новые API-узлы в разделе 'API Node' и добавьте их на холст"
-      },
-      "step4": {
-        "title": "Запустить!"
-      }
-    },
-    "subtitle": "Все внешние модели теперь доступны в ComfyUI"
-  },
   "apiNodesSignInDialog": {
     "message": "Этот рабочий процесс содержит API Nodes, которые требуют входа в вашу учетную запись для выполнения.",
     "title": "Требуется вход для использования API Nodes"
@@ -101,6 +81,13 @@
       "signUpWithGoogle": "Зарегистрироваться через Google",
       "title": "Создать аккаунт"
     }
+  },
+  "chatHistory": {
+    "cancelEdit": "Отмена",
+    "cancelEditTooltip": "Отменить редактирование",
+    "copiedTooltip": "Скопировано",
+    "copyTooltip": "Скопировать сообщение в буфер",
+    "editTooltip": "Редактировать сообщение"
   },
   "clipboard": {
     "errorMessage": "Не удалось скопировать в буфер обмена",
@@ -261,11 +248,13 @@
     "all": "Все",
     "amount": "Количество",
     "apply": "Применить",
+    "audioFailedToLoad": "Не удалось загрузить аудио",
     "back": "Назад",
     "cancel": "Отмена",
     "capture": "захват",
     "category": "Категория",
     "choose_file_to_upload": "выберите файл для загрузки",
+    "clear": "Очистить",
     "close": "Закрыть",
     "color": "Цвет",
     "comingSoon": "Скоро будет",
@@ -277,8 +266,10 @@
     "continue": "Продолжить",
     "control_after_generate": "управление после генерации",
     "control_before_generate": "управление до генерации",
+    "copy": "Копировать",
     "copyToClipboard": "Скопировать в буфер обмена",
     "currentUser": "Текущий пользователь",
+    "customBackground": "Пользовательский фон",
     "customize": "Настроить",
     "customizeFolder": "Настроить папку",
     "delete": "Удалить",
@@ -288,6 +279,7 @@
     "disableAll": "Отключить все",
     "disabling": "Отключение",
     "download": "Скачать",
+    "edit": "Редактировать",
     "empty": "Пусто",
     "enableAll": "Включить все",
     "enabled": "Включено",
@@ -303,6 +295,7 @@
     "goToNode": "Перейти к ноде",
     "icon": "Иконка",
     "imageFailedToLoad": "Не удалось загрузить изображение",
+    "imageUrl": "URL изображения",
     "import": "Импорт",
     "inProgress": "В процессе",
     "insert": "Вставить",
@@ -353,6 +346,7 @@
     "searchNodes": "Поиск нод",
     "searchSettings": "Поиск настроек",
     "searchWorkflows": "Поиск рабочих процессов",
+    "setAsBackground": "Установить как фон",
     "settings": "Настройки",
     "showReport": "Показать отчёт",
     "sort": "Сортировать",
@@ -509,6 +503,8 @@
     "submitErrorReport": "Отправить отчёт об ошибке (необязательно)",
     "systemStats": "Статистика системы",
     "validation": {
+      "descriptionRequired": "Описание обязательно",
+      "helpTypeRequired": "Тип помощи обязателен",
       "invalidEmail": "Пожалуйста, введите действительный адрес электронной почты",
       "maxLength": "Сообщение слишком длинное",
       "selectIssueType": "Пожалуйста, выберите тип проблемы"
@@ -529,6 +525,7 @@
     "fov": "Угол обзора",
     "light": "Свет",
     "lightIntensity": "Интенсивность света",
+    "loadingBackgroundImage": "Загрузка фонового изображения",
     "loadingModel": "Загрузка 3D модели...",
     "materialMode": "Режим Материала",
     "materialModes": {
@@ -718,6 +715,7 @@
     "Open DevTools": "Открыть инструменты разработчика",
     "Open Inputs Folder": "Открыть папку входных данных",
     "Open Logs Folder": "Открыть папку журналов",
+    "Open Mask Editor for Selected Node": "Открыть редактор масок для выбранного узла",
     "Open Models Folder": "Открыть папку моделей",
     "Open Outputs Folder": "Открыть папку выходных данных",
     "Open Sign In Dialog": "Открыть окно входа",
@@ -1008,6 +1006,7 @@
   },
   "settingsCategories": {
     "3D": "3D",
+    "API Nodes": "API-узлы",
     "About": "О программе",
     "Appearance": "Внешний вид",
     "BrushAdjustment": "Настройка кисти",
@@ -1354,6 +1353,7 @@
     "no3dSceneToExport": "Нет 3D сцены для экспорта",
     "noTemplatesToExport": "Нет шаблонов для экспорта",
     "nodeDefinitionsUpdated": "Определения узлов обновлены",
+    "nothingSelected": "Ничего не выбрано",
     "nothingToGroup": "Нечего группировать",
     "nothingToQueue": "Нет заданий в очереди",
     "pendingTasksDeleted": "Ожидающие задачи удалены",

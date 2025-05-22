@@ -4,26 +4,6 @@
     "title": "Nodo(s) de API",
     "totalCost": "Costo total"
   },
-  "apiNodesNews": {
-    "introducing": "Presentamos",
-    "steps": {
-      "step1": {
-        "subtitle": "Configuración > Usuario > Iniciar sesión",
-        "title": "Inicia sesión/Crea una cuenta:"
-      },
-      "step2": {
-        "subtitle": "Configuración > Créditos > Comprar créditos",
-        "title": "Compra créditos:"
-      },
-      "step3": {
-        "title": "Ubica los nuevos nodos API en la sección 'API Node' y agrégalos al lienzo"
-      },
-      "step4": {
-        "title": "¡Ejecuta!"
-      }
-    },
-    "subtitle": "Todos los modelos externos ahora disponibles en ComfyUI"
-  },
   "apiNodesSignInDialog": {
     "message": "Este flujo de trabajo contiene nodos de API, que requieren que inicies sesión en tu cuenta para poder ejecutar.",
     "title": "Se requiere iniciar sesión para usar los nodos de API"
@@ -101,6 +81,13 @@
       "signUpWithGoogle": "Registrarse con Google",
       "title": "Crea una cuenta"
     }
+  },
+  "chatHistory": {
+    "cancelEdit": "Cancelar",
+    "cancelEditTooltip": "Cancelar edición",
+    "copiedTooltip": "Copiado",
+    "copyTooltip": "Copiar mensaje al portapapeles",
+    "editTooltip": "Editar mensaje"
   },
   "clipboard": {
     "errorMessage": "Error al copiar al portapapeles",
@@ -261,11 +248,13 @@
     "all": "Todo",
     "amount": "Cantidad",
     "apply": "Aplicar",
+    "audioFailedToLoad": "No se pudo cargar el audio",
     "back": "Atrás",
     "cancel": "Cancelar",
     "capture": "captura",
     "category": "Categoría",
     "choose_file_to_upload": "elige archivo para subir",
+    "clear": "Limpiar",
     "close": "Cerrar",
     "color": "Color",
     "comingSoon": "Próximamente",
@@ -277,8 +266,10 @@
     "continue": "Continuar",
     "control_after_generate": "control después de generar",
     "control_before_generate": "control antes de generar",
+    "copy": "Copiar",
     "copyToClipboard": "Copiar al portapapeles",
     "currentUser": "Usuario actual",
+    "customBackground": "Fondo personalizado",
     "customize": "Personalizar",
     "customizeFolder": "Personalizar carpeta",
     "delete": "Eliminar",
@@ -288,6 +279,7 @@
     "disableAll": "Deshabilitar todo",
     "disabling": "Deshabilitando",
     "download": "Descargar",
+    "edit": "Editar",
     "empty": "Vacío",
     "enableAll": "Habilitar todo",
     "enabled": "Habilitado",
@@ -303,6 +295,7 @@
     "goToNode": "Ir al nodo",
     "icon": "Icono",
     "imageFailedToLoad": "Falló la carga de la imagen",
+    "imageUrl": "URL de la imagen",
     "import": "Importar",
     "inProgress": "En progreso",
     "insert": "Insertar",
@@ -353,6 +346,7 @@
     "searchNodes": "Buscar nodos",
     "searchSettings": "Buscar configuraciones",
     "searchWorkflows": "Buscar flujos de trabajo",
+    "setAsBackground": "Establecer como fondo",
     "settings": "Configuraciones",
     "showReport": "Mostrar informe",
     "sort": "Ordenar",
@@ -509,6 +503,8 @@
     "submitErrorReport": "Enviar Reporte de Error (Opcional)",
     "systemStats": "Estadísticas del Sistema",
     "validation": {
+      "descriptionRequired": "Se requiere una descripción",
+      "helpTypeRequired": "Se requiere el tipo de ayuda",
       "invalidEmail": "Por favor ingresa una dirección de correo electrónico válida",
       "maxLength": "Mensaje demasiado largo",
       "selectIssueType": "Por favor, seleccione un tipo de problema"
@@ -529,6 +525,7 @@
     "fov": "FOV",
     "light": "Luz",
     "lightIntensity": "Intensidad de luz",
+    "loadingBackgroundImage": "Cargando imagen de fondo",
     "loadingModel": "Cargando modelo 3D...",
     "materialMode": "Modo de material",
     "materialModes": {
@@ -718,6 +715,7 @@
     "Open DevTools": "Abrir DevTools",
     "Open Inputs Folder": "Abrir carpeta de entradas",
     "Open Logs Folder": "Abrir carpeta de registros",
+    "Open Mask Editor for Selected Node": "Abrir el editor de mask para el nodo seleccionado",
     "Open Models Folder": "Abrir carpeta de modelos",
     "Open Outputs Folder": "Abrir carpeta de salidas",
     "Open Sign In Dialog": "Abrir diálogo de inicio de sesión",
@@ -1008,6 +1006,7 @@
   },
   "settingsCategories": {
     "3D": "3D",
+    "API Nodes": "Nodos API",
     "About": "Acerca de",
     "Appearance": "Apariencia",
     "BrushAdjustment": "Ajuste de Pincel",
@@ -1354,6 +1353,7 @@
     "no3dSceneToExport": "No hay escena 3D para exportar",
     "noTemplatesToExport": "No hay plantillas para exportar",
     "nodeDefinitionsUpdated": "Definiciones de nodos actualizadas",
+    "nothingSelected": "Nada seleccionado",
     "nothingToGroup": "Nada para agrupar",
     "nothingToQueue": "Nada para poner en cola",
     "pendingTasksDeleted": "Tareas pendientes eliminadas",

@@ -4,26 +4,6 @@
     "title": "APIノード",
     "totalCost": "合計コスト"
   },
-  "apiNodesNews": {
-    "introducing": "紹介",
-    "steps": {
-      "step1": {
-        "subtitle": "設定 > ユーザー > ログイン",
-        "title": "ログイン／アカウント作成："
-      },
-      "step2": {
-        "subtitle": "設定 > クレジット > クレジットを購入",
-        "title": "クレジットを購入："
-      },
-      "step3": {
-        "title": "「APIノード」セクションで新しいAPIノードを見つけてキャンバスに追加"
-      },
-      "step4": {
-        "title": "実行！"
-      }
-    },
-    "subtitle": "すべての外部モデルがComfyUIで利用可能になりました"
-  },
   "apiNodesSignInDialog": {
     "message": "このワークフローにはAPIノードが含まれており、実行するためにはアカウントにサインインする必要があります。",
     "title": "APIノードを使用するためにはサインインが必要です"
@@ -101,6 +81,13 @@
       "signUpWithGoogle": "Googleでサインアップ",
       "title": "アカウントを作成する"
     }
+  },
+  "chatHistory": {
+    "cancelEdit": "キャンセル",
+    "cancelEditTooltip": "編集をキャンセル",
+    "copiedTooltip": "コピーしました",
+    "copyTooltip": "メッセージをクリップボードにコピー",
+    "editTooltip": "メッセージを編集"
   },
   "clipboard": {
     "errorMessage": "クリップボードへのコピーに失敗しました",
@@ -261,11 +248,13 @@
     "all": "すべて",
     "amount": "量",
     "apply": "適用する",
+    "audioFailedToLoad": "オーディオの読み込みに失敗しました",
     "back": "戻る",
     "cancel": "キャンセル",
     "capture": "キャプチャ",
     "category": "カテゴリ",
     "choose_file_to_upload": "アップロードするファイルを選択",
+    "clear": "クリア",
     "close": "閉じる",
     "color": "色",
     "comingSoon": "近日公開",
@@ -277,8 +266,10 @@
     "continue": "続ける",
     "control_after_generate": "生成後の制御",
     "control_before_generate": "生成前の制御",
+    "copy": "コピー",
     "copyToClipboard": "クリップボードにコピー",
     "currentUser": "現在のユーザー",
+    "customBackground": "カスタム背景",
     "customize": "カスタマイズ",
     "customizeFolder": "フォルダーをカスタマイズ",
     "delete": "削除",
@@ -288,6 +279,7 @@
     "disableAll": "すべて無効にする",
     "disabling": "無効化",
     "download": "ダウンロード",
+    "edit": "編集",
     "empty": "空",
     "enableAll": "すべて有効にする",
     "enabled": "有効",
@@ -303,6 +295,7 @@
     "goToNode": "ノードに移動",
     "icon": "アイコン",
     "imageFailedToLoad": "画像の読み込みに失敗しました",
+    "imageUrl": "画像URL",
     "import": "インポート",
     "inProgress": "進行中",
     "insert": "挿入",
@@ -353,6 +346,7 @@
     "searchNodes": "ノードを検索",
     "searchSettings": "設定を検索",
     "searchWorkflows": "ワークフローを検索",
+    "setAsBackground": "背景として設定",
     "settings": "設定",
     "showReport": "レポートを表示",
     "sort": "並び替え",
@@ -509,6 +503,8 @@
     "submitErrorReport": "エラーレポートを提出する（オプション）",
     "systemStats": "システム統計",
     "validation": {
+      "descriptionRequired": "説明は必須です",
+      "helpTypeRequired": "ヘルプの種類は必須です",
       "invalidEmail": "有効なメールアドレスを入力してください",
       "maxLength": "メッセージが長すぎます",
       "selectIssueType": "問題の種類を選択してください"
@@ -529,6 +525,7 @@
     "fov": "FOV",
     "light": "ライト",
     "lightIntensity": "光の強度",
+    "loadingBackgroundImage": "背景画像を読み込んでいます",
     "loadingModel": "3Dモデルを読み込んでいます...",
     "materialMode": "マテリアルモード",
     "materialModes": {
@@ -718,6 +715,7 @@
     "Open DevTools": "DevToolsを開く",
     "Open Inputs Folder": "入力フォルダを開く",
     "Open Logs Folder": "ログフォルダを開く",
+    "Open Mask Editor for Selected Node": "選択したノードのマスクエディタを開く",
     "Open Models Folder": "モデルフォルダを開く",
     "Open Outputs Folder": "出力フォルダを開く",
     "Open Sign In Dialog": "サインインダイアログを開く",
@@ -1008,6 +1006,7 @@
   },
   "settingsCategories": {
     "3D": "3D",
+    "API Nodes": "APIノード",
     "About": "情報",
     "Appearance": "外観",
     "BrushAdjustment": "ブラシ調整",
@@ -1354,6 +1353,7 @@
     "no3dSceneToExport": "エクスポートする3Dシーンがありません",
     "noTemplatesToExport": "エクスポートするテンプレートがありません",
     "nodeDefinitionsUpdated": "ノード定義が更新されました",
+    "nothingSelected": "選択されていません",
     "nothingToGroup": "グループ化するものがありません",
     "nothingToQueue": "キューに追加する項目がありません",
     "pendingTasksDeleted": "保留中のタスクが削除されました",

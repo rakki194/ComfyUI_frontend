@@ -118,7 +118,11 @@ class Load3d {
       options
     )
 
-    this.loaderManager = new LoaderManager(this.modelManager, this.eventManager)
+    this.loaderManager = new LoaderManager(
+      this.modelManager,
+      this.eventManager,
+      options
+    )
 
     this.recordingManager = new RecordingManager(
       this.sceneManager.scene,
@@ -482,6 +486,14 @@ class Load3d {
   }
 
   public remove(): void {
+    this.renderer.forceContextLoss()
+    const canvas = this.renderer.domElement
+    const event = new Event('webglcontextlost', {
+      bubbles: true,
+      cancelable: true
+    })
+    canvas.dispatchEvent(event)
+
     if (this.animationFrameId !== null) {
       cancelAnimationFrame(this.animationFrameId)
     }
