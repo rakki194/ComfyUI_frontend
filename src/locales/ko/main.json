@@ -268,6 +268,7 @@
     "control_before_generate": "생성 전 제어",
     "copy": "복사",
     "copyToClipboard": "클립보드에 복사",
+    "copyURL": "URL 복사",
     "currentUser": "현재 사용자",
     "customBackground": "맞춤 배경",
     "customize": "사용자 정의",
@@ -293,6 +294,7 @@
     "findIssues": "문제 찾기",
     "firstTimeUIMessage": "새 UI를 처음 사용합니다. \"메뉴 > 새 메뉴 사용 > 비활성화\"를 선택하여 이전 UI로 복원하세요.",
     "goToNode": "노드로 이동",
+    "help": "도움말",
     "icon": "아이콘",
     "imageFailedToLoad": "이미지를 로드하지 못했습니다.",
     "imageUrl": "이미지 URL",
@@ -707,6 +709,10 @@
     "Interrupt": "중단",
     "Load Default Workflow": "기본 워크플로 불러오기",
     "Manage group nodes": "그룹 노드 관리",
+    "Move Selected Nodes Down": "선택한 노드 아래로 이동",
+    "Move Selected Nodes Left": "선택한 노드 왼쪽으로 이동",
+    "Move Selected Nodes Right": "선택한 노드 오른쪽으로 이동",
+    "Move Selected Nodes Up": "선택한 노드 위로 이동",
     "Mute/Unmute Selected Nodes": "선택한 노드 활성화/비활성화",
     "New": "새로 만들기",
     "Next Opened Workflow": "다음 열린 워크플로",
@@ -834,6 +840,14 @@
     "v3": "v3",
     "video": "비디오",
     "video_models": "비디오 모델"
+  },
+  "nodeHelpPage": {
+    "documentationPage": "문서 페이지",
+    "inputs": "입력",
+    "loadError": "도움말을 불러오지 못했습니다: {error}",
+    "moreHelp": "더 많은 도움말은",
+    "outputs": "출력",
+    "type": "유형"
   },
   "nodeTemplates": {
     "enterName": "이름 입력",
@@ -1064,7 +1078,23 @@
     "newBlankWorkflow": "새 빈 워크플로 만들기",
     "nodeLibrary": "노드 라이브러리",
     "nodeLibraryTab": {
-      "sortOrder": "정렬 순서"
+      "groupBy": "그룹 기준",
+      "groupStrategies": {
+        "category": "카테고리",
+        "categoryDesc": "노드 카테고리별로 그룹화",
+        "module": "모듈",
+        "moduleDesc": "모듈 소스별로 그룹화",
+        "source": "소스",
+        "sourceDesc": "소스 유형(Core, Custom, API)별로 그룹화"
+      },
+      "resetView": "기본 보기로 재설정",
+      "sortBy": {
+        "alphabetical": "알파벳순",
+        "alphabeticalDesc": "그룹 내에서 알파벳순으로 정렬",
+        "original": "원본 순서",
+        "originalDesc": "원래 순서를 유지"
+      },
+      "sortMode": "정렬 방식"
     },
     "openWorkflow": "로컬 파일 시스템에서 워크플로 열기",
     "queue": "실행 대기열",
@@ -1112,6 +1142,7 @@
   "templateWorkflows": {
     "category": {
       "3D": "3D",
+      "All": "모든 템플릿",
       "Area Composition": "영역 구성",
       "Audio": "오디오",
       "Basics": "기본",

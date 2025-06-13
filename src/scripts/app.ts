@@ -67,6 +67,7 @@ import {
   findLegacyRerouteNodes,
   noNativeReroutes
 } from '@/utils/migration/migrateReroute'
+import { getSelectedModelsMetadata } from '@/utils/modelMetadataUtil'
 import { deserialiseAndCreate } from '@/utils/vintageClipboard'
 
 import { type ComfyApi, PromptExecutionError, api } from './api'
@@ -1037,8 +1038,10 @@ export class ComfyApp {
       }
 
       // Collect models metadata from node
-      if (n.properties?.models?.length)
-        embeddedModels.push(...n.properties.models)
+      const selectedModels = getSelectedModelsMetadata(n)
+      if (selectedModels?.length) {
+        embeddedModels.push(...selectedModels)
+      }
     }
 
     // Merge models from the workflow's root-level 'models' field
@@ -1074,11 +1077,11 @@ export class ComfyApp {
     try {
       // @ts-expect-error Discrepancies between zod and litegraph - in progress
       this.graph.configure(graphData)
-      if (restore_view) {
-        if (
-          useSettingStore().get('Comfy.EnableWorkflowViewRestore') &&
-          graphData.extra?.ds
-        ) {
+      if (
+        restore_view &&
+        useSettingStore().get('Comfy.EnableWorkflowViewRestore')
+      ) {
+        if (graphData.extra?.ds) {
           this.canvas.ds.offset = graphData.extra.ds.offset
           this.canvas.ds.scale = graphData.extra.ds.scale
         } else {
@@ -1552,7 +1555,6 @@ export class ComfyApp {
   /**
    * Registers a Comfy web extension with the app
    * @param {ComfyExtension} extension
-   * @deprecated Use useExtensionService().registerExtension instead
    */
   registerExtension(extension: ComfyExtension) {
     useExtensionService().registerExtension(extension)

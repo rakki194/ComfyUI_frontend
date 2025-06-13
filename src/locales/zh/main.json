@@ -268,6 +268,7 @@
     "control_before_generate": "生成前控制",
     "copy": "复制",
     "copyToClipboard": "复制到剪贴板",
+    "copyURL": "复制链接",
     "currentUser": "当前用户",
     "customBackground": "自定义背景",
     "customize": "自定义",
@@ -293,6 +294,7 @@
     "findIssues": "查找问题",
     "firstTimeUIMessage": "这是您第一次使用新界面。选择 \"菜单 > 使用新菜单 > 禁用\" 来恢复旧界面。",
     "goToNode": "转到节点",
+    "help": "帮助",
     "icon": "图标",
     "imageFailedToLoad": "图像加载失败",
     "imageUrl": "图片网址",
@@ -707,6 +709,10 @@
     "Interrupt": "中断",
     "Load Default Workflow": "加载默认工作流",
     "Manage group nodes": "管理组节点",
+    "Move Selected Nodes Down": "下移所选节点",
+    "Move Selected Nodes Left": "左移所选节点",
+    "Move Selected Nodes Right": "右移所选节点",
+    "Move Selected Nodes Up": "上移所选节点",
     "Mute/Unmute Selected Nodes": "静音/取消静音选定节点",
     "New": "新建",
     "Next Opened Workflow": "下一个打开的工作流",
@@ -834,6 +840,14 @@
     "v3": "v3",
     "video": "视频",
     "video_models": "视频模型"
+  },
+  "nodeHelpPage": {
+    "documentationPage": "文档页面",
+    "inputs": "输入",
+    "loadError": "加载帮助失败：{error}",
+    "moreHelp": "如需更多帮助，请访问",
+    "outputs": "输出",
+    "type": "类型"
   },
   "nodeTemplates": {
     "enterName": "输入名称",
@@ -1064,7 +1078,23 @@
     "newBlankWorkflow": "创建空白工作流",
     "nodeLibrary": "节点库",
     "nodeLibraryTab": {
-      "sortOrder": "排序顺序"
+      "groupBy": "分组方式",
+      "groupStrategies": {
+        "category": "类别",
+        "categoryDesc": "按节点类别分组",
+        "module": "模块",
+        "moduleDesc": "按模块来源分组",
+        "source": "来源",
+        "sourceDesc": "按来源类型分组（核心，自定义，API）"
+      },
+      "resetView": "重置视图为默认",
+      "sortBy": {
+        "alphabetical": "字母顺序",
+        "alphabeticalDesc": "在分组内按字母顺序排序",
+        "original": "原始顺序",
+        "originalDesc": "保持原始顺序"
+      },
+      "sortMode": "排序模式"
     },
     "openWorkflow": "在本地文件系统中打开工作流",
     "queue": "队列",
@@ -1112,6 +1142,7 @@
   "templateWorkflows": {
     "category": {
       "3D": "3D",
+      "All": "所有模板",
       "Area Composition": "区域组成",
       "Audio": "音频",
       "Basics": "基础",

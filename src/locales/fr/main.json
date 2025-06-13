@@ -268,6 +268,7 @@
     "control_before_generate": "contrôle avant génération",
     "copy": "Copier",
     "copyToClipboard": "Copier dans le presse-papiers",
+    "copyURL": "Copier l’URL",
     "currentUser": "Utilisateur actuel",
     "customBackground": "Arrière-plan personnalisé",
     "customize": "Personnaliser",
@@ -293,6 +294,7 @@
     "findIssues": "Trouver des problèmes",
     "firstTimeUIMessage": "C'est la première fois que vous utilisez la nouvelle interface utilisateur. Choisissez \"Menu > Utiliser le nouveau menu > Désactivé\" pour restaurer l'ancienne interface utilisateur.",
     "goToNode": "Aller au nœud",
+    "help": "Aide",
     "icon": "Icône",
     "imageFailedToLoad": "Échec du chargement de l'image",
     "imageUrl": "URL de l'image",
@@ -707,6 +709,10 @@
     "Interrupt": "Interrompre",
     "Load Default Workflow": "Charger le flux de travail par défaut",
     "Manage group nodes": "Gérer les nœuds de groupe",
+    "Move Selected Nodes Down": "Déplacer les nœuds sélectionnés vers le bas",
+    "Move Selected Nodes Left": "Déplacer les nœuds sélectionnés vers la gauche",
+    "Move Selected Nodes Right": "Déplacer les nœuds sélectionnés vers la droite",
+    "Move Selected Nodes Up": "Déplacer les nœuds sélectionnés vers le haut",
     "Mute/Unmute Selected Nodes": "Mettre en sourdine/Activer le son des nœuds sélectionnés",
     "New": "Nouveau",
     "Next Opened Workflow": "Prochain flux de travail ouvert",
@@ -834,6 +840,14 @@
     "v3": "v3",
     "video": "vidéo",
     "video_models": "modèles_vidéo"
+  },
+  "nodeHelpPage": {
+    "documentationPage": "page de documentation",
+    "inputs": "Entrées",
+    "loadError": "Échec du chargement de l’aide : {error}",
+    "moreHelp": "Pour plus d'aide, visitez la",
+    "outputs": "Sorties",
+    "type": "Type"
   },
   "nodeTemplates": {
     "enterName": "Entrez le nom",
@@ -1064,7 +1078,23 @@
     "newBlankWorkflow": "Créer un nouveau flux de travail vierge",
     "nodeLibrary": "Bibliothèque de nœuds",
     "nodeLibraryTab": {
-      "sortOrder": "Ordre de tri"
+      "groupBy": "Grouper par",
+      "groupStrategies": {
+        "category": "Catégorie",
+        "categoryDesc": "Grouper par catégorie de nœud",
+        "module": "Module",
+        "moduleDesc": "Grouper par source du module",
+        "source": "Source",
+        "sourceDesc": "Grouper par type de source (Core, Custom, API)"
+      },
+      "resetView": "Réinitialiser la vue par défaut",
+      "sortBy": {
+        "alphabetical": "Alphabétique",
+        "alphabeticalDesc": "Trier alphabétiquement dans les groupes",
+        "original": "Original",
+        "originalDesc": "Conserver l'ordre d'origine"
+      },
+      "sortMode": "Mode de tri"
     },
     "openWorkflow": "Ouvrir le flux de travail dans le système de fichiers local",
     "queue": "File d'attente",
@@ -1112,6 +1142,7 @@
   "templateWorkflows": {
     "category": {
       "3D": "3D",
+      "All": "Tous les modèles",
       "Area Composition": "Composition de zone",
       "Audio": "Audio",
       "Basics": "Basiques",

@@ -3,10 +3,9 @@ import dotenv from 'dotenv'
 import IconsResolver from 'unplugin-icons/resolver'
 import Icons from 'unplugin-icons/vite'
 import Components from 'unplugin-vue-components/vite'
-import { defineConfig } from 'vite'
+import { type UserConfig, defineConfig } from 'vite'
 import { createHtmlPlugin } from 'vite-plugin-html'
 import vueDevTools from 'vite-plugin-vue-devtools'
-import type { UserConfigExport } from 'vitest/config'
 
 import {
   addElementVnodeExportPlugin,
@@ -54,6 +53,18 @@ export default defineConfig({
 
       '/workflow_templates': {
         target: DEV_SERVER_COMFYUI_URL
+      },
+
+      // Proxy extension assets (images/videos) under /extensions to the ComfyUI backend
+      '/extensions': {
+        target: DEV_SERVER_COMFYUI_URL,
+        changeOrigin: true
+      },
+
+      // Proxy docs markdown from backend
+      '/docs': {
+        target: DEV_SERVER_COMFYUI_URL,
+        changeOrigin: true
       },
 
       ...(!DISABLE_TEMPLATES_PROXY
@@ -142,4 +153,4 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['@comfyorg/litegraph', '@comfyorg/comfyui-electron-types']
   }
-}) as UserConfigExport
+}) satisfies UserConfig as UserConfig

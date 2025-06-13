@@ -14,7 +14,7 @@
     <div class="flex flex-1 relative overflow-hidden">
       <ManagerNavSidebar
         v-if="isSideNavOpen"
-        v-model:selectedTab="selectedTab"
+        v-model:selected-tab="selectedTab"
         :tabs="tabs"
       />
       <div
@@ -27,9 +27,9 @@
       >
         <div class="px-6 pt-6 flex flex-col h-full">
           <RegistrySearchBar
-            v-model:searchQuery="searchQuery"
-            v-model:searchMode="searchMode"
-            v-model:sortField="sortField"
+            v-model:search-query="searchQuery"
+            v-model:search-mode="searchMode"
+            v-model:sort-field="sortField"
             :search-results="searchResults"
             :suggestions="suggestions"
           />
@@ -408,19 +408,30 @@ const handleGridContainerClick = (event: MouseEvent) => {
 
 const hasMultipleSelections = computed(() => selectedNodePacks.value.length > 1)
 
+// Track the last pack ID for which we've fetched full registry data
+const lastFetchedPackId = ref<string | null>(null)
+
+// Whenever a single pack is selected, fetch its full info once
 whenever(selectedNodePack, async () => {
   // Cancel any in-flight requests from previously selected node pack
   getPackById.cancel()
-
-  if (!selectedNodePack.value?.id) return
-
   // If only a single node pack is selected, fetch full node pack info from registry
+  const pack = selectedNodePack.value
+  if (!pack?.id) return
   if (hasMultipleSelections.value) return
-  const data = await getPackById.call(selectedNodePack.value.id)
-
-  if (data?.id === selectedNodePack.value?.id) {
-    // If selected node hasn't changed since request, merge registry & Algolia data
-    selectedNodePacks.value = [merge(selectedNodePack.value, data)]
+  // Only fetch if we haven't already for this pack
+  if (lastFetchedPackId.value === pack.id) return
+  const data = await getPackById.call(pack.id)
+  // If selected node hasn't changed since request, merge registry & Algolia data
+  if (data?.id === pack.id) {
+    lastFetchedPackId.value = pack.id
+    const mergedPack = merge({}, pack, data)
+    selectedNodePacks.value = [mergedPack]
+    // Replace pack in displayPacks so that children receive a fresh prop reference
+    const idx = displayPacks.value.findIndex((p) => p.id === mergedPack.id)
+    if (idx !== -1) {
+      displayPacks.value.splice(idx, 1, mergedPack)
+    }
   }
 })
 
