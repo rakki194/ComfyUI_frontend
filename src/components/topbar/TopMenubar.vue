@@ -6,7 +6,7 @@
     :class="{ dropzone: isDropZone, 'dropzone-active': isDroppable }"
   >
     <img
-      src="/assets/images/comfy-logo-mono.svg"
+      src="/assets/images/hotdogwolf.png"
       alt="ComfyUI Logo"
       class="comfyui-logo ml-2 app-drag h-6"
     />
@@ -132,10 +132,5 @@ onMounted(() => {
 .comfyui-logo {
   user-select: none;
   cursor: default;
-  filter: invert(0);
-}
-
-.dark-theme .comfyui-logo {
-  filter: invert(1);
 }
 </style>

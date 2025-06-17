@@ -85,7 +85,7 @@
           @click="showApiKeyForm = true"
         >
           <img
-            src="/assets/images/comfy-logo-mono.svg"
+            src="/assets/images/hotdogwolf.png"
             class="w-5 h-5 mr-2"
             alt="Comfy"
           />
