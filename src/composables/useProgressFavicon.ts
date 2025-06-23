@@ -10,11 +10,17 @@ export const useProgressFavicon = () => {
   const totalFrames = 10
 
   watch(
-    [() => executionStore.executionProgress, () => executionStore.isIdle],
-    ([progress, isIdle]) => {
+    [
+      () => executionStore.executingNodeProgress,
+      () => executionStore.executionProgress,
+      () => executionStore.isIdle
+    ],
+    ([nodeProgress, workflowProgress, isIdle]) => {
       if (isIdle) {
         favicon.value = defaultFavicon
       } else {
+        // Use node progress if available, otherwise fall back to workflow progress
+        const progress = nodeProgress !== null ? nodeProgress : workflowProgress
         const frame = Math.min(
           Math.max(0, Math.floor(progress * totalFrames)),
           totalFrames - 1
