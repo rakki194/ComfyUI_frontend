@@ -6,8 +6,8 @@
     :class="{ dropzone: isDropZone, 'dropzone-active': isDroppable }"
   >
     <img
-      src="/assets/images/hotdogwolf.png"
-      alt="ComfyUI Logo"
+      src="/assets/images/hotdogwolf.svg"
+      alt="Hotdogwolf Logo"
       class="comfyui-logo ml-2 app-drag h-6"
     />
     <CommandMenubar />
