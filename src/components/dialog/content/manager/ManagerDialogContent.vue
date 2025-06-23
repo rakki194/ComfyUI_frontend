@@ -32,6 +32,7 @@
             v-model:sort-field="sortField"
             :search-results="searchResults"
             :suggestions="suggestions"
+            :is-missing-tab="isMissingTab"
             :sort-options="sortOptions"
           />
           <div class="flex-1 overflow-auto">
@@ -58,7 +59,7 @@
               <VirtualGrid
                 id="results-grid"
                 :items="resultsWithKeys"
-                :buffer-rows="3"
+                :buffer-rows="4"
                 :grid-style="GRID_STYLE"
                 @approach-end="onApproachEnd"
               >
@@ -217,10 +218,6 @@ const {
 
 const filterMissingPacks = (packs: components['schemas']['Node'][]) =>
   packs.filter((pack) => !comfyManagerStore.isPackInstalled(pack.id))
-
-whenever(selectedTab, () => {
-  pageNumber.value = 0
-})
 
 const isUpdateAvailableTab = computed(
   () => selectedTab.value?.id === ManagerTab.UpdateAvailable
@@ -467,9 +464,10 @@ let gridContainer: HTMLElement | null = null
 onMounted(() => {
   gridContainer = document.getElementById('results-grid')
 })
-watch(searchQuery, () => {
+watch([searchQuery, selectedTab], () => {
   gridContainer ??= document.getElementById('results-grid')
   if (gridContainer) {
+    pageNumber.value = 0
     gridContainer.scrollTop = 0
   }
 })

@@ -551,6 +551,11 @@
     "uploadBackgroundImage": "Télécharger l'image de fond",
     "uploadTexture": "Télécharger Texture"
   },
+  "loadWorkflowWarning": {
+    "coreNodesFromVersion": "Nécessite ComfyUI {version} :",
+    "outdatedVersion": "Certains nœuds nécessitent une version plus récente de ComfyUI (actuelle : {version}). Veuillez mettre à jour pour utiliser tous les nœuds.",
+    "outdatedVersionGeneric": "Certains nœuds nécessitent une version plus récente de ComfyUI. Veuillez mettre à jour pour utiliser tous les nœuds."
+  },
   "maintenance": {
     "None": "Aucun",
     "OK": "OK",
@@ -586,6 +591,7 @@
     },
     "inWorkflow": "Dans le flux de travail",
     "infoPanelEmpty": "Cliquez sur un élément pour voir les informations",
+    "installAllMissingNodes": "Installer tous les nœuds manquants",
     "installSelected": "Installer sélectionné",
     "installationQueue": "File d'attente d'installation",
     "lastUpdated": "Dernière mise à jour",
