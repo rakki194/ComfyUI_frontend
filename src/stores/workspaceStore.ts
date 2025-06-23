@@ -6,9 +6,7 @@ import { useColorPaletteService } from '@/services/colorPaletteService'
 import { useDialogService } from '@/services/dialogService'
 import type { SidebarTabExtension, ToastManager } from '@/types/extensionTypes'
 
-import { useApiKeyAuthStore } from './apiKeyAuthStore'
 import { useCommandStore } from './commandStore'
-import { useFirebaseAuthStore } from './firebaseAuthStore'
 import { useQueueSettingsStore } from './queueStore'
 import { useSettingStore } from './settingStore'
 import { useToastStore } from './toastStore'
@@ -45,16 +43,8 @@ export const useWorkspaceStore = defineStore('workspace', () => {
   const dialog = useDialogService()
   const bottomPanel = useBottomPanelStore()
 
-  const authStore = useFirebaseAuthStore()
-  const apiKeyStore = useApiKeyAuthStore()
-
-  const firebaseUser = computed(() => authStore.currentUser)
-  const isApiKeyLogin = computed(() => apiKeyStore.isAuthenticated)
-  const isLoggedIn = computed(
-    () => !!isApiKeyLogin.value || firebaseUser.value !== null
-  )
   const partialUserStore = {
-    isLoggedIn
+    isLoggedIn: computed(() => false) // No authentication required
   }
 
   /**

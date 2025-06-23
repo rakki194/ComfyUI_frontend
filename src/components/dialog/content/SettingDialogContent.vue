@@ -2,7 +2,7 @@
   <div class="settings-container">
     <ScrollPanel class="settings-sidebar flex-shrink-0 p-2 w-48 2xl:w-64">
       <SearchBox
-        v-model:modelValue="searchQuery"
+        v-model:model-value="searchQuery"
         class="settings-search-box w-full mb-2"
         :placeholder="$t('g.searchSettings') + '...'"
         :debounce-time="128"
@@ -44,7 +44,7 @@
             <FirstTimeUIMessage v-if="tabValue === 'Comfy'" />
             <ColorPaletteMessage v-if="tabValue === 'Appearance'" />
           </template>
-          <SettingsPanel :setting-groups="sortedGroups(category)" />
+          <SettingsPanel :setting-groups="[]" />
         </PanelTemplate>
 
         <Suspense v-for="panel in panels" :key="panel.node.key">
@@ -62,17 +62,14 @@
 import Divider from 'primevue/divider'
 import Listbox from 'primevue/listbox'
 import ScrollPanel from 'primevue/scrollpanel'
-import TabPanels from 'primevue/tabpanels'
 import Tabs from 'primevue/tabs'
 import { computed, watch } from 'vue'
 
 import SearchBox from '@/components/common/SearchBox.vue'
-import { useFirebaseAuthActions } from '@/composables/auth/useFirebaseAuthActions'
 import { useSettingSearch } from '@/composables/setting/useSettingSearch'
 import { useSettingUI } from '@/composables/setting/useSettingUI'
 import { SettingTreeNode } from '@/stores/settingStore'
-import { ISettingGroup, SettingParams } from '@/types/settingTypes'
-import { flattenTree } from '@/utils/treeUtil'
+import { ISettingGroup } from '@/types/settingTypes'
 
 import ColorPaletteMessage from './setting/ColorPaletteMessage.vue'
 import CurrentUserMessage from './setting/CurrentUserMessage.vue'
@@ -107,18 +104,6 @@ const {
   getSearchResults
 } = useSettingSearch()
 
-const authActions = useFirebaseAuthActions()
-
-// Sort groups for a category
-const sortedGroups = (category: SettingTreeNode): ISettingGroup[] => {
-  return [...(category.children ?? [])]
-    .sort((a, b) => a.label.localeCompare(b.label))
-    .map((group) => ({
-      label: group.label,
-      settings: flattenTree<SettingParams>(group)
-    }))
-}
-
 const handleSearch = (query: string) => {
   handleSearchBase(query)
   activeCategory.value = query ? null : defaultCategory.value
@@ -130,7 +115,7 @@ const searchResults = computed<ISettingGroup[]>(() =>
 )
 
 const tabValue = computed<string>(() =>
-  inSearch.value ? 'Search Results' : activeCategory.value?.label ?? ''
+  inSearch.value ? 'Search Results' : (activeCategory.value?.label ?? '')
 )
 
 // Don't allow null category to be set outside of search.
@@ -138,9 +123,6 @@ const tabValue = computed<string>(() =>
 watch(activeCategory, (_, oldValue) => {
   if (!tabValue.value) {
     activeCategory.value = oldValue
-  }
-  if (activeCategory.value?.key === 'credits') {
-    void authActions.fetchBalance()
   }
 })
 </script>

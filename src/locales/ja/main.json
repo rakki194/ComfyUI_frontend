@@ -419,7 +419,6 @@
       "selectGpu": "GPUを選択",
       "selectGpuDescription": "所有しているGPUのタイプを選択してください"
     },
-    "helpImprove": "ComfyUIの改善にご協力ください",
     "installLocation": "インストール先",
     "installLocationDescription": "ComfyUIのユーザーデータを保存するディレクトリを選択してください。Python環境が選択した場所にインストールされます。選択したディスクに約15GBの空き容量が必要です。",
     "installLocationTooltip": "ComfyUIのユーザーデータディレクトリ。保存内容:\n- Python環境\n- モデル\n- カスタムノード\n",
@@ -432,45 +431,19 @@
       "title": "マニュアル設定",
       "virtualEnvironmentPath": "仮想環境のパス"
     },
-    "metricsDisabled": "メトリクスを無効にする",
-    "metricsEnabled": "メトリクスを有効にする",
     "migrateFromExistingInstallation": "既存のインストールから移行",
     "migration": "移行",
     "migrationOptional": "移行は任意です。既存のインストールがない場合、このステップをスキップできます。",
     "migrationSourcePathDescription": "既存のComfyUIインストールがある場合、既存のユーザーファイルとモデルを新しいインストールにコピー/リンクすることができます。既存のComfyUIインストールは影響を受けません。",
-    "moreInfo": "詳しくはこちらをご覧ください",
     "nonDefaultDrive": "ComfyUIをシステムドライブ（例：C:\\）にインストールしてください。異なるファイルシステムを持つドライブでは、予測不能な問題が発生する可能性があります。インストール後にモデルやその他のファイルを他のドライブに保存することができます。",
     "parentMissing": "パスが存在しません - 最初に含まれるディレクトリを作成してください",
     "pathExists": "ディレクトリはすでに存在します - すべてのデータをバックアップしたことを確認してください",
     "pathValidationFailed": "パスの検証に失敗しました",
-    "privacyPolicy": "プライバシーポリシー",
     "selectItemsToMigrate": "移行する項目を選択",
     "settings": {
-      "allowMetrics": "使用状況のメトリクス",
-      "allowMetricsDescription": "匿名の使用状況メトリクスを送信してComfyUIを改善します。個人情報やワークフローの内容は収集されません。",
       "autoUpdate": "自動更新",
       "autoUpdateDescription": "更新が利用可能になると、自動的にダウンロードおよびインストールを行います。インストール前に通知が表示されます。",
       "checkingMirrors": "Pythonミラーへのネットワークアクセスを確認中...",
-      "dataCollectionDialog": {
-        "collect": {
-          "errorReports": "エラーメッセージとスタックトレース",
-          "systemInfo": "ハードウェア、OSタイプ、アプリバージョン",
-          "userJourneyEvents": "ユーザージャーニーイベント"
-        },
-        "doNotCollect": {
-          "customNodeConfigurations": "カスタムノードの設定",
-          "fileSystemInformation": "ファイルシステム情報",
-          "personalInformation": "個人情報",
-          "workflowContents": "ワークフローの内容"
-        },
-        "title": "データ収集について",
-        "viewFullPolicy": "完全なポリシーを見る",
-        "whatWeCollect": "収集内容:",
-        "whatWeDoNotCollect": "収集しない内容:"
-      },
-      "errorUpdatingConsent": "同意の更新エラー",
-      "errorUpdatingConsentDetail": "メトリクスの同意設定の更新に失敗しました",
-      "learnMoreAboutData": "データ収集の詳細を見る",
       "mirrorSettings": "ミラー設定",
       "mirrorsReachable": "Pythonミラーへのネットワークアクセスは良好です",
       "mirrorsUnreachable": "一部のpythonミラーへのネットワークアクセスが悪い",
@@ -478,8 +451,7 @@
       "pythonMirrorPlaceholder": "PythonミラーURLを入力してください"
     },
     "systemLocations": "システムの場所",
-    "unhandledError": "未知のエラー",
-    "updateConsent": "以前、クラッシュレポートを報告することに同意していました。現在、バグの特定とアプリの改善を助けるためにイベントベースのメトリクスを追跡しています。個人を特定できる情報は収集されません。"
+    "unhandledError": "未知のエラー"
   },
   "issueReport": {
     "contactFollowUp": "フォローアップのために私に連絡する",

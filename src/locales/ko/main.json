@@ -419,7 +419,6 @@
       "selectGpu": "GPU 선택",
       "selectGpuDescription": "소유한 GPU 유형을 선택하세요"
     },
-    "helpImprove": "ComfyUI 개선에 도움을 주세요",
     "installLocation": "설치 위치",
     "installLocationDescription": "ComfyUI의 사용자 데이터 디렉토리를 선택하십시오. 선택한 위치에 Python 환경이 설치됩니다. 선택한 디스크에 충분한 공간(~15GB)이 남아 있는지 확인하십시오.",
     "installLocationTooltip": "ComfyUI의 사용자 데이터 디렉토리. 저장소:\n- Python 환경\n- 모델\n- 사용자 정의 노드\n",
@@ -432,45 +431,19 @@
       "title": "수동 구성",
       "virtualEnvironmentPath": "가상 환경 경로"
     },
-    "metricsDisabled": "데이터 수집 비활성화",
-    "metricsEnabled": "데이터 수집 활성화",
     "migrateFromExistingInstallation": "기존 설치에서 마이그레이션",
     "migration": "마이그레이션",
     "migrationOptional": "마이그레이션은 선택 사항입니다. 기존에 설치된 것이 없다면, 이 단계를 건너뛸 수 있습니다.",
     "migrationSourcePathDescription": "기존에 설치된 ComfyUI가 있으면, 기존 사용자 파일과 모델을 새 설치본으로 복사하거나 링크 할 수 있습니다. 기존의 ComfyUI 설치는 영향을 받지 않습니다.",
-    "moreInfo": "더 많은 정보를 원하시면, 다음을 읽어주세요",
     "nonDefaultDrive": "ComfyUI를 시스템 드라이브(예: C:\\)에 설치하십시오. 다른 파일 시스템을 가진 드라이브는 예측할 수 없는 문제를 일으킬 수 있습니다. 설치 후에는 모델 및 기타 파일을 다른 드라이브에 저장할 수 있습니다.",
     "parentMissing": "경로가 존재하지 않습니다 - 먼저 포함하는 디렉토리를 생성하세요",
     "pathExists": "디렉토리가 이미 존재합니다 - 모든 데이터를 백업했는지 확인해 주세요",
     "pathValidationFailed": "경로 유효성 검사 실패",
-    "privacyPolicy": "개인정보 보호정책",
     "selectItemsToMigrate": "마이그레이션 항목 선택",
     "settings": {
-      "allowMetrics": "사용 통계",
-      "allowMetricsDescription": "익명의 사용 통계를 보내 ComfyUI를 개선하는 데 도움을 줍니다. 개인 정보나 워크플로 내용은 수집되지 않습니다.",
       "autoUpdate": "자동 업데이트",
       "autoUpdateDescription": "업데이트가 가능해지면 자동으로 다운로드하고 설치합니다. 업데이트가 설치되기 전에 항상 알림을 받습니다.",
       "checkingMirrors": "Python 미러에 대한 네트워크 액세스 확인 중...",
-      "dataCollectionDialog": {
-        "collect": {
-          "errorReports": "오류 메시지 및 스택 추적",
-          "systemInfo": "하드웨어, OS 유형, 앱 버전",
-          "userJourneyEvents": "사용자 행동 흐름 이벤트"
-        },
-        "doNotCollect": {
-          "customNodeConfigurations": "커스텀 노드 구성",
-          "fileSystemInformation": "파일 시스템 정보",
-          "personalInformation": "개인 정보",
-          "workflowContents": "워크플로 내용"
-        },
-        "title": "데이터 수집 안내",
-        "viewFullPolicy": "전체 정책 보기",
-        "whatWeCollect": "수집하는 정보:",
-        "whatWeDoNotCollect": "수집하지 않는 정보:"
-      },
-      "errorUpdatingConsent": "데이터 수집 동의 설정 업데이트 오류",
-      "errorUpdatingConsentDetail": "데이터 수집 동의 설정 업데이트에 실패했습니다",
-      "learnMoreAboutData": "데이터 수집에 대해 더 알아보기",
       "mirrorSettings": "미러 URL 설정",
       "mirrorsReachable": "Python 미러에 대한 네트워크 액세스가 좋습니다",
       "mirrorsUnreachable": "일부 Python 미러에 대한 네트워크 접근이 나쁩니다",
@@ -478,8 +451,7 @@
       "pythonMirrorPlaceholder": "Python 미러 URL 입력"
     },
     "systemLocations": "시스템 위치",
-    "unhandledError": "알 수 없는 오류",
-    "updateConsent": "이전에 충돌 보고에 동의하셨습니다. 이제 버그를 식별하고 앱을 개선하기 위해 이벤트 기반 통계 정보의 추적을 시작합니다. 개인을 식별할 수 있는 정보는 수집되지 않습니다."
+    "unhandledError": "알 수 없는 오류"
   },
   "issueReport": {
     "contactFollowUp": "추적 조사를 위해 연락해 주세요",

@@ -24,11 +24,7 @@
       </template>
       <div class="p-4 mt-2 border border-round surface-border shadow-1">
         <div class="flex flex-col gap-6">
-          <FormField
-            v-slot="$field"
-            name="contactInfo"
-            :initial-value="authStore.currentUser?.email"
-          >
+          <FormField v-slot="$field" name="contactInfo">
             <div class="self-stretch inline-flex justify-start items-center">
               <label for="contactInfo" class="pb-2 pt-0 opacity-80">{{
                 $t('issueReport.email')
@@ -59,7 +55,7 @@
                   $t('issueReport.whatDoYouNeedHelpWith')
                 }}</label>
               </div>
-              <Dropdown
+              <Select
                 v-bind="$field"
                 v-model="$field.value"
                 :options="helpTypes"
@@ -167,16 +163,14 @@
 <script setup lang="ts">
 import { Form, FormField, type FormSubmitEvent } from '@primevue/forms'
 import { zodResolver } from '@primevue/forms/resolvers/zod'
-import type { CaptureContext, User } from '@sentry/core'
-import { captureMessage } from '@sentry/core'
 import _ from 'lodash'
 import cloneDeep from 'lodash/cloneDeep'
 import Button from 'primevue/button'
 import Checkbox from 'primevue/checkbox'
-import Dropdown from 'primevue/dropdown'
 import InputText from 'primevue/inputtext'
 import Message from 'primevue/message'
 import Panel from 'primevue/panel'
+import Select from 'primevue/select'
 import Textarea from 'primevue/textarea'
 import { useToast } from 'primevue/usetoast'
 import { computed, ref } from 'vue'
@@ -188,7 +182,6 @@ import {
 } from '@/schemas/issueReportSchema'
 import { api } from '@/scripts/api'
 import { app } from '@/scripts/app'
-import { useFirebaseAuthStore } from '@/stores/firebaseAuthStore'
 import type {
   DefaultField,
   IssueReportPanelProps,
@@ -205,7 +198,6 @@ const { defaultFields = ['Workflow', 'Logs', 'SystemStats', 'Settings'] } =
 
 const { t } = useI18n()
 const toast = useToast()
-const authStore = useFirebaseAuthStore()
 
 const selection = ref<string[]>([])
 const contactPrefs = ref<string[]>([])
@@ -264,7 +256,7 @@ const fields = computed(() => [
   ...(props.extraFields ?? [])
 ])
 
-const createUser = (formData: IssueReportFormData): User => ({
+const createUser = (formData: IssueReportFormData) => ({
   email: formData.contactInfo || undefined
 })
 
@@ -288,9 +280,7 @@ const createExtraData = async (formData: IssueReportFormData) => {
   return result
 }
 
-const createCaptureContext = async (
-  formData: IssueReportFormData
-): Promise<CaptureContext> => {
+const createReportContext = async (formData: IssueReportFormData) => {
   return {
     user: createUser(formData),
     level: 'error',
@@ -316,7 +306,7 @@ const generateUniqueTicketId = (type: string) => `${type}-${generateUUID()}`
 const submit = async (event: FormSubmitEvent) => {
   if (event.valid) {
     try {
-      const captureContext = await createCaptureContext(event.values)
+      const reportContext = await createReportContext(event.values)
 
       // If it's billing or access issue, generate unique id to be used by customer service ticketing
       const isValidContactInfo = event.values.contactInfo?.length
@@ -328,7 +318,10 @@ const submit = async (event: FormSubmitEvent) => {
       const issueName = isCustomerServiceIssue
         ? `ticket-${generateUniqueTicketId(event.values.helpType || '')}`
         : DEFAULT_ISSUE_NAME
-      captureMessage(issueName, captureContext)
+
+      // Log the issue report instead of sending to telemetry
+      console.log('Issue report:', issueName, reportContext)
+
       submitted.value = true
       toast.add({
         severity: 'success',

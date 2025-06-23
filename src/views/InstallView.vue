@@ -37,8 +37,8 @@
         </StepPanel>
         <StepPanel v-slot="{ activateCallback }" value="1">
           <InstallLocationPicker
-            v-model:installPath="installPath"
-            v-model:pathError="pathError"
+            v-model:install-path="installPath"
+            v-model:path-error="pathError"
           />
           <div class="flex pt-6 justify-between">
             <Button
@@ -58,8 +58,8 @@
         </StepPanel>
         <StepPanel v-slot="{ activateCallback }" value="2">
           <MigrationPicker
-            v-model:sourcePath="migrationSourcePath"
-            v-model:migrationItemIds="migrationItemIds"
+            v-model:source-path="migrationSourcePath"
+            v-model:migration-item-ids="migrationItemIds"
           />
           <div class="flex pt-6 justify-between">
             <Button
@@ -77,14 +77,11 @@
           </div>
         </StepPanel>
         <StepPanel v-slot="{ activateCallback }" value="3">
-          <DesktopSettingsConfiguration
-            v-model:autoUpdate="autoUpdate"
-            v-model:allowMetrics="allowMetrics"
-          />
+          <DesktopSettingsConfiguration v-model:auto-update="autoUpdate" />
           <MirrorsConfiguration
-            v-model:pythonMirror="pythonMirror"
-            v-model:pypiMirror="pypiMirror"
-            v-model:torchMirror="torchMirror"
+            v-model:python-mirror="pythonMirror"
+            v-model:pypi-mirror="pypiMirror"
+            v-model:torch-mirror="torchMirror"
             :device="device"
             class="mt-6"
           />
@@ -140,7 +137,6 @@ const migrationSourcePath = ref('')
 const migrationItemIds = ref<string[]>([])
 
 const autoUpdate = ref(true)
-const allowMetrics = ref(true)
 const pythonMirror = ref('')
 const pypiMirror = ref('')
 const torchMirror = ref('')
@@ -150,10 +146,8 @@ const highestStep = ref(0)
 
 const handleStepChange = (value: string | number) => {
   setHighestStep(value)
-
-  electronAPI().Events.trackEvent('install_stepper_change', {
-    step: value
-  })
+  // Log step change instead of tracking
+  console.log('Install step change:', { step: value })
 }
 
 const setHighestStep = (value: string | number) => {
@@ -170,7 +164,6 @@ const install = async () => {
   const options: InstallOptions = {
     installPath: installPath.value,
     autoUpdate: autoUpdate.value,
-    allowMetrics: allowMetrics.value,
     migrationSourcePath: migrationSourcePath.value,
     migrationItemIds: toRaw(migrationItemIds.value),
     pythonMirror: pythonMirror.value,
@@ -194,7 +187,8 @@ onMounted(async () => {
     device.value = detectedGpu
   }
 
-  electronAPI().Events.trackEvent('install_stepper_change', {
+  // Log initial step instead of tracking
+  console.log('Install step change:', {
     step: '0',
     gpu: detectedGpu
   })

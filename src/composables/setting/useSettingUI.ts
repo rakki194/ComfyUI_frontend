@@ -13,7 +13,7 @@ import { isElectron } from '@/utils/envUtil'
 import { normalizeI18nKey } from '@/utils/formatUtil'
 import { buildTree } from '@/utils/treeUtil'
 
-import { useCurrentUser } from '../auth/useCurrentUser'
+const { isLoggedIn } = { isLoggedIn: computed(() => false) }
 
 interface SettingPanelItem {
   node: SettingTreeNode
@@ -30,7 +30,6 @@ export function useSettingUI(
     | 'credits'
 ) {
   const { t } = useI18n()
-  const { isLoggedIn } = useCurrentUser()
   const settingStore = useSettingStore()
   const activeCategory = ref<SettingTreeNode | null>(null)
 

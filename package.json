@@ -78,7 +78,6 @@
     "@comfyorg/litegraph": "^0.15.15",
     "@primevue/forms": "^4.2.5",
     "@primevue/themes": "^4.2.5",
-    "@sentry/vue": "^8.48.0",
     "@tiptap/core": "^2.10.4",
     "@tiptap/extension-link": "^2.10.4",
     "@tiptap/extension-table": "^2.10.4",
@@ -94,7 +93,7 @@
     "axios": "^1.8.2",
     "dompurify": "^3.2.5",
     "dotenv": "^16.4.5",
-    "firebase": "^11.6.0",
+
     "fuse.js": "^7.0.0",
     "jsondiffpatch": "^0.6.0",
     "lodash": "^4.17.21",
@@ -108,7 +107,7 @@
     "vue": "^3.5.13",
     "vue-i18n": "^9.14.3",
     "vue-router": "^4.4.3",
-    "vuefire": "^3.2.1",
+
     "zod": "^3.23.8",
     "zod-validation-error": "^3.3.0"
   }

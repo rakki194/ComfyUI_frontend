@@ -351,29 +351,7 @@
     },
     "settings": {
       "autoUpdate": "Automatic Updates",
-      "allowMetrics": "Usage Metrics",
-      "errorUpdatingConsent": "Error Updating Consent",
-      "errorUpdatingConsentDetail": "Failed to update metrics consent settings",
       "autoUpdateDescription": "Automatically download updates when they become available. You will be notified before updates are installed.",
-      "allowMetricsDescription": "Help improve ComfyUI by sending anonymous usage metrics. No personal information or workflow content will be collected.",
-      "learnMoreAboutData": "Learn more about data collection",
-      "dataCollectionDialog": {
-        "title": "About Data Collection",
-        "whatWeCollect": "What we collect:",
-        "whatWeDoNotCollect": "What we don't collect:",
-        "collect": {
-          "errorReports": "Error message and stack trace",
-          "systemInfo": "Hardware, OS type, and app version",
-          "userJourneyEvents": "User journey events"
-        },
-        "doNotCollect": {
-          "personalInformation": "Personal information",
-          "fileSystemInformation": "File system information",
-          "workflowContents": "Workflow contents",
-          "customNodeConfigurations": "Custom node configurations"
-        },
-        "viewFullPolicy": "View full policy"
-      },
       "pythonMirrorPlaceholder": "Enter Python mirror URL",
       "pypiMirrorPlaceholder": "Enter PyPI mirror URL",
       "checkingMirrors": "Checking network access to python mirrors...",
@@ -381,15 +359,9 @@
       "mirrorsUnreachable": "Network access to some python mirrors is bad",
       "mirrorSettings": "Mirror Settings"
     },
-    "customNodes": "Custom Nodes",
-    "customNodesDescription": "Reinstall custom nodes from existing ComfyUI installations.",
-    "helpImprove": "Please help improve ComfyUI",
-    "moreInfo": "For more info, please read our",
-    "privacyPolicy": "privacy policy",
-    "metricsEnabled": "Metrics Enabled",
-    "metricsDisabled": "Metrics Disabled",
-    "updateConsent": "You previously opted in to reporting crashes. We are now tracking event-based metrics to help identify bugs and improve the app. No personal identifiable information is collected."
-  },
+          "customNodes": "Custom Nodes",
+      "customNodesDescription": "Reinstall custom nodes from existing ComfyUI installations."
+    },
   "serverStart": {
     "troubleshoot": "Troubleshoot",
     "reportIssue": "Report Issue",
@@ -1419,9 +1391,10 @@
     "title": "User Settings",
     "name": "Name",
     "email": "Email",
-    "provider": "Sign-in Provider",
-    "notSet": "Not set",
-    "updatePassword": "Update Password"
+    "provider": "Provider",
+    "notSet": "Not Set",
+    "updatePassword": "Update Password",
+    "noAuthenticationMessage": "User authentication has been disabled in this version."
   },
   "selectionToolbox": {
     "executeButton": {

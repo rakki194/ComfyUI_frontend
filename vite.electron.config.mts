@@ -60,12 +60,7 @@ const mockElectronAPI: Plugin = {
             getDetectedGpu: () => Promise.resolve('nvidia')
           },
           Events: {
-            trackEvent: (event_name, event_data) => {
-              console.log('trackEvent', event_name, event_data)
-            },
-            incrementUserProperty: (property, value) => {
-              console.log('incrementUserProperty', property, value)
-            }
+            // Removed telemetry functions - just log to console instead
           },
           NetWork: {
             canAccessUrl: (url) => {
@@ -74,7 +69,9 @@ const mockElectronAPI: Plugin = {
               return new Promise((resolve) => setTimeout(() => resolve(canAccess), 10000))
             }
           },
-          setMetricsConsent: (consent) => {}
+          setMetricsConsent: (consent) => {
+            console.log('Metrics consent (disabled):', consent)
+          }
         };`
       }
     ]

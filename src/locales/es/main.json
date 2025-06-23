@@ -419,7 +419,6 @@
       "selectGpu": "Seleccionar GPU",
       "selectGpuDescription": "Selecciona el tipo de GPU que tienes"
     },
-    "helpImprove": "Por favor ayuda a mejorar ComfyUI",
     "installLocation": "Ubicación de Instalación",
     "installLocationDescription": "Selecciona el directorio para los datos de usuario de ComfyUI. Un entorno de python será instalado en la ubicación seleccionada.",
     "installLocationTooltip": "Directorio de datos de usuario de ComfyUI. Almacena:\n- Entorno Python\n- Modelos\n- Nodos personalizados\n",
@@ -432,45 +431,19 @@
       "title": "Configuración Manual",
       "virtualEnvironmentPath": "Ruta del entorno virtual"
     },
-    "metricsDisabled": "Métricas Deshabilitadas",
-    "metricsEnabled": "Métricas Habilitadas",
     "migrateFromExistingInstallation": "Migrar desde una Instalación Existente",
     "migration": "Migración",
     "migrationOptional": "La migración es opcional. Si no tienes una instalación existente, puedes saltarte este paso.",
     "migrationSourcePathDescription": "Si tienes una instalación existente de ComfyUI, podemos copiar/enlazar tus archivos de usuario existentes y modelos a la nueva instalación. Tu instalación existente de ComfyUI no será afectada.",
-    "moreInfo": "Para más información, por favor lee nuestra",
     "nonDefaultDrive": "Por favor instala ComfyUI en tu unidad de sistema (ej. C:\\). Las unidades con diferentes sistemas de archivos pueden causar problemas impredecibles. Los modelos y otros archivos pueden ser almacenados en otras unidades después de la instalación.",
     "parentMissing": "La ruta no existe - crea el directorio contenedor primero",
     "pathExists": "El directorio ya existe - por favor asegúrate de haber respaldado todos los datos",
     "pathValidationFailed": "Falló la validación de la ruta",
-    "privacyPolicy": "política de privacidad",
     "selectItemsToMigrate": "Selecciona los Elementos a Migrar",
     "settings": {
-      "allowMetrics": "Métricas de Uso",
-      "allowMetricsDescription": "Ayuda a mejorar ComfyUI enviando métricas de uso anónimas. No se recogerá ninguna información personal o contenido de flujo de trabajo.",
       "autoUpdate": "Actualizaciones Automáticas",
       "autoUpdateDescription": "Descarga automáticamente las actualizaciones cuando estén disponibles. Se te notificará antes de que las actualizaciones sean instaladas.",
       "checkingMirrors": "Comprobando el acceso a la red a los espejos de python...",
-      "dataCollectionDialog": {
-        "collect": {
-          "errorReports": "Mensaje de error y rastreo de pila",
-          "systemInfo": "Hardware, tipo de SO y versión de la aplicación",
-          "userJourneyEvents": "Eventos de trayectoria del usuario"
-        },
-        "doNotCollect": {
-          "customNodeConfigurations": "Configuraciones de nodo personalizadas",
-          "fileSystemInformation": "Información del sistema de archivos",
-          "personalInformation": "Información personal",
-          "workflowContents": "Contenidos de flujo de trabajo"
-        },
-        "title": "Acerca de la Recolección de Datos",
-        "viewFullPolicy": "Ver política completa",
-        "whatWeCollect": "Lo que recogemos:",
-        "whatWeDoNotCollect": "Lo que no recogemos:"
-      },
-      "errorUpdatingConsent": "Error Actualizando Consentimiento",
-      "errorUpdatingConsentDetail": "Falló al actualizar la configuración de consentimiento de métricas",
-      "learnMoreAboutData": "Aprende más sobre la recolección de datos",
       "mirrorSettings": "Configuraciones de Espejo",
       "mirrorsReachable": "El acceso a la red a los espejos de python es bueno",
       "mirrorsUnreachable": "El acceso a la red a algunos espejos de python es malo",
@@ -478,8 +451,7 @@
       "pythonMirrorPlaceholder": "Ingresa la URL del espejo de Python"
     },
     "systemLocations": "Ubicaciones del Sistema",
-    "unhandledError": "Error desconocido",
-    "updateConsent": "Anteriormente optaste por reportar fallos. Ahora estamos rastreando métricas basadas en eventos para ayudar a identificar errores y mejorar la aplicación. No se recoge ninguna información personal identificable."
+    "unhandledError": "Error desconocido"
   },
   "issueReport": {
     "contactFollowUp": "Contáctame para seguimiento",

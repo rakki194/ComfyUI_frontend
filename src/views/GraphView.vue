@@ -95,20 +95,18 @@ if (isElectron()) {
   watch(
     () => queueStore.tasks,
     (newTasks, oldTasks) => {
-      // Report tasks that previously running but are now completed (i.e. in history)
       const oldRunningTaskIds = new Set(
-        oldTasks.filter((task) => task.isRunning).map((task) => task.promptId)
+        oldTasks
+          .filter((task: any) => task.isRunning)
+          .map((task: any) => task.promptId)
       )
+      // Log execution status changes instead of tracking
       newTasks
         .filter(
-          (task) => oldRunningTaskIds.has(task.promptId) && task.isHistory
+          (task: any) => oldRunningTaskIds.has(task.promptId) && task.isHistory
         )
-        .forEach((task) => {
-          electronAPI().Events.incrementUserProperty(
-            `execution:${task.displayStatus.toLowerCase()}`,
-            1
-          )
-          electronAPI().Events.trackEvent('execution', {
+        .forEach((task: any) => {
+          console.log('Execution completed:', {
             status: task.displayStatus.toLowerCase()
           })
         })

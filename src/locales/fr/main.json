@@ -419,7 +419,6 @@
       "selectGpu": "Sélectionnez le GPU",
       "selectGpuDescription": "Sélectionnez le type de GPU que vous avez"
     },
-    "helpImprove": "Veuillez aider à améliorer ComfyUI",
     "installLocation": "Emplacement d'installation",
     "installLocationDescription": "Sélectionnez le répertoire pour les données utilisateur de ComfyUI. Un environnement python sera installé à l'emplacement sélectionné. Veuillez vous assurer que le disque sélectionné a suffisamment d'espace (~15GB) restant.",
     "installLocationTooltip": "Répertoire des données utilisateur de ComfyUI. Stocke :\n- Environnement Python\n- Modèles\n- Nœuds personnalisés\n",
@@ -432,45 +431,19 @@
       "title": "Configuration manuelle",
       "virtualEnvironmentPath": "Chemin de l'environnement virtuel"
     },
-    "metricsDisabled": "Métriques désactivées",
-    "metricsEnabled": "Métriques activées",
     "migrateFromExistingInstallation": "Migrer à partir d'une installation existante",
     "migration": "Migration",
     "migrationOptional": "La migration est facultative. Si vous n'avez pas d'installation existante, vous pouvez sauter cette étape.",
     "migrationSourcePathDescription": "Si vous avez une installation existante de ComfyUI, nous pouvons copier/lier vos fichiers utilisateur et modèles existants à la nouvelle installation. Votre installation existante de ComfyUI ne sera pas affectée.",
-    "moreInfo": "Pour plus d'informations, veuillez lire notre",
     "nonDefaultDrive": "Veuillez installer ComfyUI sur le disque système de votre ordinateur (par exemple C:\\). Les disques avec des systèmes de fichiers différents peuvent causer des problèmes imprévisibles. Les modèles et autres fichiers peuvent être stockés sur d'autres disques après l'installation.",
     "parentMissing": "Le chemin n'existe pas - créez d'abord le répertoire contenant",
     "pathExists": "Le répertoire existe déjà - veuillez vous assurer que vous avez sauvegardé toutes les données",
     "pathValidationFailed": "Échec de la validation du chemin",
-    "privacyPolicy": "politique de confidentialité",
     "selectItemsToMigrate": "Sélectionnez les éléments à migrer",
     "settings": {
-      "allowMetrics": "Métriques d'utilisation",
-      "allowMetricsDescription": "Aidez à améliorer ComfyUI en envoyant des métriques d'utilisation anonymes. Aucune information personnelle ou contenu de flux de travail ne sera collecté.",
       "autoUpdate": "Mises à jour automatiques",
       "autoUpdateDescription": "Téléchargez et installez automatiquement les mises à jour lorsqu'elles deviennent disponibles. Vous serez toujours informé avant l'installation des mises à jour.",
       "checkingMirrors": "Vérification de l'accès réseau aux miroirs python...",
-      "dataCollectionDialog": {
-        "collect": {
-          "errorReports": "Message d'erreur et trace de la pile",
-          "systemInfo": "Matériel, type de système d'exploitation et version de l'application",
-          "userJourneyEvents": "Événements du parcours utilisateur"
-        },
-        "doNotCollect": {
-          "customNodeConfigurations": "Configurations de nœud personnalisées",
-          "fileSystemInformation": "Informations sur le système de fichiers",
-          "personalInformation": "Informations personnelles",
-          "workflowContents": "Contenus du flux de travail"
-        },
-        "title": "À propos de la collecte de données",
-        "viewFullPolicy": "Voir la politique complète",
-        "whatWeCollect": "Ce que nous collectons :",
-        "whatWeDoNotCollect": "Ce que nous ne collectons pas :"
-      },
-      "errorUpdatingConsent": "Erreur de mise à jour du consentement",
-      "errorUpdatingConsentDetail": "Échec de la mise à jour des paramètres de consentement aux métriques",
-      "learnMoreAboutData": "En savoir plus sur la collecte de données",
       "mirrorSettings": "Paramètres du Miroir",
       "mirrorsReachable": "L'accès réseau aux miroirs python est bon",
       "mirrorsUnreachable": "L'accès au réseau à certains miroirs python est mauvais",
@@ -478,8 +451,7 @@
       "pythonMirrorPlaceholder": "Entrez l'URL du miroir Python"
     },
     "systemLocations": "Emplacements système",
-    "unhandledError": "Erreur inconnue",
-    "updateConsent": "Vous avez précédemment accepté de signaler les plantages. Nous suivons maintenant des métriques basées sur les événements pour aider à identifier les bugs et améliorer l'application. Aucune information personnelle identifiable n'est collectée."
+    "unhandledError": "Erreur inconnue"
   },
   "issueReport": {
     "contactFollowUp": "Contactez-moi pour un suivi",

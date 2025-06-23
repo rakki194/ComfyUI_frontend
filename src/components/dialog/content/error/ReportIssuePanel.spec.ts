@@ -25,8 +25,8 @@ const CUSTOM_FIELDS = [
 ]
 
 async function getSubmittedContext() {
-  const { captureMessage } = (await import('@sentry/core')) as any
-  return captureMessage.mock.calls[0][1]
+  const consoleSpy = vi.spyOn(console, 'log')
+  return consoleSpy.mock.calls.find((call) => call[0] === 'Issue report')?.[2]
 }
 
 async function submitForm(wrapper: any) {
@@ -83,10 +83,6 @@ vi.mock('@/scripts/app', () => ({
   }
 }))
 
-vi.mock('@sentry/core', () => ({
-  captureMessage: vi.fn()
-}))
-
 vi.mock('@primevue/forms', () => ({
   Form: {
     name: 'Form',
@@ -140,14 +136,6 @@ vi.mock('@primevue/forms', () => ({
       }
     }
   }
-}))
-
-vi.mock('@/stores/firebaseAuthStore', () => ({
-  useFirebaseAuthStore: () => ({
-    currentUser: {
-      email: 'test@example.com'
-    }
-  })
 }))
 
 describe('ReportIssuePanel', () => {

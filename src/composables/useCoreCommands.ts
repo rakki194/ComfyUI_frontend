@@ -6,7 +6,6 @@ import {
 } from '@comfyorg/litegraph'
 import { Point } from '@comfyorg/litegraph'
 
-import { useFirebaseAuthActions } from '@/composables/auth/useFirebaseAuthActions'
 import {
   DEFAULT_DARK_COLOR_PALETTE,
   DEFAULT_LIGHT_COLOR_PALETTE
@@ -35,7 +34,7 @@ export function useCoreCommands(): ComfyCommand[] {
   const workflowStore = useWorkflowStore()
   const dialogService = useDialogService()
   const colorPaletteStore = useColorPaletteStore()
-  const firebaseAuthActions = useFirebaseAuthActions()
+
   const toastStore = useToastStore()
   const getTracker = () => workflowStore.activeWorkflow?.changeTracker
 
@@ -673,22 +672,14 @@ export function useCoreCommands(): ComfyCommand[] {
         dialogService.toggleManagerProgressDialog()
       }
     },
-    {
-      id: 'Comfy.User.OpenSignInDialog',
-      icon: 'pi pi-user',
-      label: 'Open Sign In Dialog',
-      versionAdded: '1.17.6',
-      function: async () => {
-        await dialogService.showSignInDialog()
-      }
-    },
+
     {
       id: 'Comfy.User.SignOut',
       icon: 'pi pi-sign-out',
       label: 'Sign Out',
       versionAdded: '1.18.1',
       function: async () => {
-        await firebaseAuthActions.logout()
+        // Authentication removed
       }
     },
     {
